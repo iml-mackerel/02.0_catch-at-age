@@ -1,0 +1,189 @@
+---
+title: "Catch-at-age: test 2022"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+    code_folding: show
+    number_sections: TRUE
+---
+    
+# SET-UP
+```{r  markdown, echo=F}
+library(knitr)
+opts_chunk$set(echo = T, collapse = T, fig.align = "center", fig.width = 9, fig.height = 6)
+options(width = 140)
+```    
+
+## settings
+```{r settings, message = F}
+source('0.0_settings.R')
+```
+
+## load all data
+```{r data, message = F}
+load(paste0(dir.rdat, "catch.caa.Rdata"))                                # from 2.0 caa
+load(paste0(dir.rdat, "bio.caa.Rdata"))                                  # from 2.0 caa
+load(paste0(dir.rdat, "lf.caa.Rdata"))                                   # from 2.0 caa
+lf.caa <- lf.caa[,c("year","period","gear","region","sample.id","length","weight.unit","n")]
+load(paste0(dir.rdat, "caa.Rdata"))                                      # from 2.0 caa - default caa
+```
+
+# CATCH-AT-AGE
+```{r caa, message = F}
+redo <- FALSE
+catch.diffusedRsim <- paste0(dir.rdat, "catch.diffused.2022.oldlandings.Rdata")
+caaRsim <- paste0(dir.rdat, "caa.2022.oldlandings.Rdata")
+
+if(redo){
+    # change landings for 2022
+    years <- 2017:2021
+    
+    catch.sim <- ddply(catch.caa[catch.caa$year %in% years,],c('region','period','gear'),summarise,catch=mean(catch)) # average proportions of last years
+    catch.sim$catch <- catch.sim$catch/sum(catch.sim$catch)*sum(catch.caa[catch.caa$year==2022,'catch'])  # rescale to 2022 total catch
+    catch.sim$year <- 2022
+    
+    # re-estimate
+    catch.diffused.sim <- get.samples(catch=catch.sim,
+                       lf=lf.caa, 
+                       al=bio.caa,
+                       min.lf.samples =2,          # min samples for length-frequency
+                       min.al.samples =2,          # min samples for age-length key
+                       min.al.fish = 12,
+                       period.unit='quarter', # quarterly grouping instead of monthly
+                       prob.al=0.75)        # max probability with which for a given length an age class might be missing in stratum specific  ALK
+    
+    catch.diffused.sim$age.0 <- NULL                # remove age 0 (total landings somewhat smaller)
+    save(catch.diffused.sim, file =  catch.diffusedRsim)
+    
+    # step 2) get actual caa
+    caa.sim <- get.caa(x=catch.diffused.sim,plus=10)
+    save(caa.sim, file =  caaRsim)     
+}else{
+    load(catch.diffusedRsim)
+    load(caaRsim) 
+}
+
+write.csv(caa.sim,paste0('csv/',tail(my.year,1),'/caa202priorlandings.csv'))
+
+
+```
+
+## Plots{.tabset}
+### Counts
+```{r caa_check_samples, fig.height = 6,fig.width = 8}
+plotAttribution(catch.diffused.sim)
+```
+
+### %catch per option (lf, annual)
+```{r caa_check_samples_catch_annual_lf, fig.height = 3,fig.width = 8}
+plotQuality(x=catch.diffused.sim,"option.lengthfreq",annual=TRUE)+geom_hline(yintercept=0.5,col='lightgrey')
+```
+
+### %catch per option (alk, annual)
+```{r caa_check_samples_catch_annual_alk, fig.height = 3,fig.width = 8}
+plotQuality(x=catch.diffused.sim,"option.agelength",annual=TRUE)+geom_hline(yintercept=0.5,col='lightgrey')
+```
+
+### CAAN
+```{r caan_plot, message = F, fig.height = 3,fig.width = 10}
+plotCaan(caa.sim)
+```
+
+
+## Compare
+```{r plot 1}
+caa.default <- caa[caa$year%in%c(2021,2022),]
+caa.default$run <-'default'
+caa.sim$run  <-'prior.landings'
+
+caa.sim21 <- caa.sim
+caa.sim21$year <- 2021
+caa.sim21$caan <- 0
+
+caa.comp <- rbind(caa.default,caa.sim,caa.sim21)
+caa.comp <- ddply(caa.comp,c('year','run'),transform,caan.prop=caan/sum(caan))
+
+ggplot(caa.comp,aes(x=as.factor(age),y=caan.prop,fill=run,group=run))+
+    geom_bar(stat='identity',position='dodge')+
+    facet_grid(year~.)+
+    scale_y_continuous(expand=c(0,0))+
+    labs(y='Proportion landed',x='Age')
+
+```
+
+# Regional age proportions in samples
+By region, across all samples, independent of gear types, period, sample weight. 
+```{r caareg, message = F}
+redo <- FALSE
+
+catch.diffusedRsimreg <- paste0(dir.rdat, "catch.diffused.2022.reg.Rdata")
+caaRsimreg <- paste0(dir.rdat, "caa.2022.reg.Rdata")
+
+these.regions <- c('SS','sGSL','wNL','eNL','nGSL')
+
+if(redo){
+  
+  catch.diffused.reg <- ldply(these.regions,function(x){
+        print(x)
+    
+        years <- 2022
+
+        lf.reg <- lf.caa[lf.caa$region==x & !is.na(lf.caa$region) & lf.caa$year %in% years,]
+        al.reg <- bio.caa[bio.caa$region==x & !is.na(bio.caa$region) & bio.caa$year %in% years,]
+        
+        ca.reg <- data.frame(year=2022,region=x,period=NA,gear=NA,catch=1)   # !!! index like !!!! age-comp across all samples
+                                              
+        catch.diffused <- get.samples(catch=ca.reg,
+                           lf=lf.reg, 
+                           al=al.reg,
+                           min.lf.samples =1,          # min samples for length-frequency
+                           min.al.samples =1,          # min samples for age-length key
+                           min.al.fish = 1,
+                           period.unit='quarter')   # quarterly grouping instead of monthly
+    
+        catch.diffused$age.0 <- NULL                                             # remove age 0 ?? (total landings somewhat smaller)
+        return(catch.diffused)
+  })
+  save(catch.diffused.reg, file =  catch.diffusedRsimreg)
+  
+  caa.reg <- ddply(catch.diffused.reg,c('region'),function(x){x[is.na(x)]<-0;get.caa(x,plus=10)})
+
+  save(caa.reg, file =  caaRsimreg)
+}else{ 
+    load(caaRsimreg)
+    load(catch.diffusedRsimreg)
+}
+
+```
+
+## output
+```{r plot 2}
+caa.reg <- ddply(caa.reg,c('region'),transform,caan.prop=caan/sum(caan))
+ggplot(caa.reg,aes(x=as.factor(age),y=caan.prop,fill=region))+
+    geom_bar(stat='identity',position='dodge')+
+    labs(y='Proportion',x='Age',fill='Region')+
+    scale_y_continuous(expand=c(0,0))+
+    scale_fill_viridis_d()
+
+```
+
+## length
+See length dist of samples. ribbon is 50% of samples
+```{r plot 3}
+len <- ddply(lf.caa[lf.caa$year==2022,],c('year','region','gear','period','sample.id'),transform,prop=n/sum(n)) 
+lens <- ddply(len,c('region','length'),summarise,m=median(prop),low=quantile(prop,0.25),high=quantile(prop,0.75))
+
+ggplot(lens,aes(x=length))+
+    geom_ribbon(aes(ymin=low,ymax=high),alpha=0.2)+
+    geom_line(aes(y=m))+
+    scale_y_continuous(expand=c(0,0))+
+    facet_wrap(~region,scale='free_y',ncol=1)+
+    labs(y='Proportion',y='Length (mm)',fill='Region',col='Region')
+
+```
+
+

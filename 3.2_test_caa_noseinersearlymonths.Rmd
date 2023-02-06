@@ -1,0 +1,151 @@
+---
+title: "Catch-at-age"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+    code_folding: show
+    number_sections: TRUE
+---
+    
+# SET-UP
+<!-- ```{r  markdown, echo=F} -->
+<!-- library(knitr) -->
+<!-- opts_chunk$set(echo = T, collapse = T, fig.align = "center", fig.width = 9, fig.height = 6) -->
+<!-- options(width = 140) -->
+<!-- ```     -->
+
+<!-- ## settings -->
+<!-- ```{r settings, message = F} -->
+<!-- source('0.0_settings.R') -->
+<!-- ``` -->
+
+<!-- ## load all data -->
+<!-- ```{r data, message = F} -->
+<!-- load(paste0(dir.rdat, "catch.caa.Rdata"))                                # from 2.0 caa -->
+<!-- load(paste0(dir.rdat, "bio.caa.Rdata"))                                  # from 2.0 caa -->
+<!-- load(paste0(dir.rdat, "lf.caa.Rdata"))                                   # from 2.0 caa -->
+<!-- ``` -->
+
+<!-- # CATCH-AT-AGE -->
+<!-- ```{r caa, message = F} -->
+<!-- catch.diffusedR <- paste0(dir.rdat, "catch.diffused.noseinersearlymonths.Rdata") -->
+<!-- caaR <- paste0(dir.rdat, "caa.noseinersearlymonths.Rdata") -->
+
+<!-- # step 1) get samples -->
+<!-- lf.caa[,which(names(lf.caa) %in% names(lw.mod)[-c(1:2)])] <- NULL   # remove model details -->
+
+<!-- years <- my.year[my.year>=min(lf$year)]                   # no lf prior to this year -->
+<!-- catch.caa <- catch.caa[catch.caa$year %in% years,]        # years for which lf -->
+<!-- bio.caa <- bio.caa[bio.caa$year %in% years,]              # years for which lf -->
+
+<!-- bio.caa2 <- bio.caa[bio.caa$period %in% 3:4& !bio.caa$gear!='Seines_Nets_Traps_Weirs',] -->
+<!-- lf.caa2 <- lf.caa[lf.caa$period %in% 3:4 & !lf.caa$gear!='Seines_Nets_Traps_Weirs',] -->
+
+<!-- catch.diffused <- get.samples(catch=catch.caa, -->
+<!--                    lf=lf.caa2,  -->
+<!--                    al=bio.caa2, -->
+<!--                    min.lf.samples =1,          # min samples for length-frequency -->
+<!--                    min.al.samples =1,          # min samples for age-length key -->
+<!--                    min.al.fish = 12, -->
+<!--                    period.unit='quarter', # quarterly grouping instead of monthly -->
+<!--                    subsample = TRUE,     # age length keys are stratied subsamples, not necessarily matching the lf samples -->
+<!--                    prob.al=0.75)        # max probability with which for a given length an age class might be missing in stratum specific  ALK -->
+
+<!-- catch.diffused$age.0 <- NULL                # remove age 0 (total landings somewhat smaller) -->
+<!-- save(catch.diffused, file =  catch.diffusedR) -->
+
+<!-- # step 2) get actual caa -->
+<!-- caa <- get.caa(x=catch.diffused,plus=10) -->
+<!-- save(caa.1sample, file =  caaR)      -->
+
+<!-- load(catch.diffusedR) -->
+<!-- load(caaR) -->
+
+<!-- ``` -->
+
+<!-- ## CHECK {.tabset} -->
+<!-- ### Counts -->
+<!-- ```{r caa_check_samples, fig.height = 6,fig.width = 8} -->
+<!-- plot.attribution(catch.diffused) -->
+<!-- ``` -->
+
+<!-- ### %catch per option -->
+<!-- ```{r caa_check_samples_catch, fig.height = 6,fig.width = 8} -->
+<!-- grid.arrange( -->
+<!--     plot.quality(x=catch.diffused,"option.lengthfreq"), -->
+<!--     plot.quality(x=catch.diffused,"option.agelength") -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- ### %catch per option (lf, annual) -->
+<!-- ```{r caa_check_samples_catch_annual_lf, fig.height = 8,fig.width = 8} -->
+<!-- plot.quality(x=catch.diffused,"option.lengthfreq",annual=TRUE)+geom_hline(yintercept=0.5,col='lightgrey') -->
+<!-- ``` -->
+
+<!-- ### %catch per option (alk, annual) -->
+<!-- ```{r caa_check_samples_catch_annual_alk, fig.height = 8,fig.width = 8} -->
+<!-- plot.quality(x=catch.diffused,"option.agelength",annual=TRUE)+geom_hline(yintercept=0.5,col='lightgrey') -->
+<!-- ``` -->
+
+
+<!-- ## PLOTS {.tabset} -->
+<!-- ### CAAN -->
+<!-- ```{r caan_plot, message = F, fig.height = 3,fig.width = 10} -->
+<!-- plot.caan(caa) -->
+<!-- ``` -->
+
+<!-- ### CAAW -->
+<!-- ```{r caaw_plot, message = F, fig.height = 3,fig.width = 10} -->
+<!-- plot.caaw(caa) -->
+<!-- ``` -->
+
+<!-- ### WAA -->
+<!-- ```{r waa_plot, message = F, fig.height = 4,fig.width = 10} -->
+<!-- plot.waa(caa) -->
+<!-- ``` -->
+
+<!-- ### WAA.ci -->
+<!-- ```{r waa_plot_ci, message = F, fig.height = 6,fig.width = 10} -->
+<!-- plot.waa(caa,ci=TRUE) -->
+<!-- ``` -->
+
+<!-- ## Side-wise absolute -->
+<!-- ```{r plot 1} -->
+<!-- caa.exclude <- caa -->
+<!-- caa.exclude$run <- 'no.seiners.no.early' -->
+<!-- load(paste0(dir.rdat, "caa.Rdata")) -->
+<!-- caa$run <- 'base' -->
+
+<!-- caa.comp <- rbind(caa,caa.exclude) -->
+
+<!-- ggplot(caa.comp,aes(x=year,y=age,size=caan))+ -->
+<!--     geom_point(alpha=0.8)+ -->
+<!--     scale_size(range = c(1,8))+ -->
+<!--     facet_grid(run~.) -->
+
+<!-- ``` -->
+
+<!-- ## Side-wise relative -->
+<!-- ```{r plot2} -->
+<!-- caa.comp <- ddply(caa.comp,c('year','run'),transform,caan.rel=caan/sum(caan)) -->
+<!-- ggplot(caa.comp,aes(x=year,y=age,size=caan.rel))+ -->
+<!--     geom_point(alpha=0.8)+ -->
+<!--     scale_size(range = c(1,8))+ -->
+<!--     facet_grid(run~.) -->
+<!-- ``` -->
+
+<!-- ## Residual absolute -->
+
+<!-- ## Residual relative -->
+<!-- ```{r plot 4} -->
+<!-- caa.diff <- ddply(caa.comp,c('year','age'),summarise,diff=caan.rel[1]-caan.rel[2]) # base-exclude -->
+<!-- caa.diff$col <- ifelse(caa.diff$diff<0,'-',ifelse(caa.diff$diff==0,'0','+')) -->
+<!-- ggplot(caa.diff,aes(x=year,y=age,size=abs(diff),col=col))+ -->
+<!--     geom_point(alpha=0.8)+ -->
+<!--     scale_color_manual(values=c('darkred','darkgreen','black'))+ -->
+<!--     labs(title='BASE (rel) - NO SEINERS/MAY_JUNE (rel)') -->
+<!-- ``` -->

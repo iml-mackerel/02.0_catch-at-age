@@ -1,0 +1,187 @@
+---
+title: "Catch-at-age: comparison"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+    code_folding: show
+    number_sections: TRUE
+---
+
+# SET-UP    
+```{r markdown, echo=F}
+library(knitr)
+opts_chunk$set(echo = T, collapse = T, fig.align = "center", fig.width = 9, fig.height = 6)
+options(width = 140)
+```    
+
+## settings
+
+```{r settings, message = F}
+source('0.0_settings.R')
+```
+
+## load all data
+
+```{r data, message = F}
+# New caa
+load(paste0(dir.rdat, "caa.Rdata"))
+
+# Old caa and waa
+repo <- "https://github.com/iml-mackerel/0.0_model/blob/master/"
+
+ys <- c(2001:2007,2011,2013,2016,2018,2020)
+caa.hist <- lapply(ys, function(x) read.ices(url(paste0(repo,'data/',x,'/cn.dat',"?raw=true"))))
+names(caa.hist) <- ys 
+
+ysw <- c(2016,2018,2020)
+waa.hist <- lapply(ysw,function(x) read.ices(url(paste0(repo,'data/',x,'/cw.dat',"?raw=true"))))
+names(waa.hist) <- ysw
+```
+
+## Bindind and scaling
+```{r wrangle, message = F}
+caa.old <- reshape2::melt(as.matrix(caa.hist$'2020'),varnames=c('year','age'),value.name='caan.old')
+waa.old <- reshape2::melt(as.matrix(waa.hist$'2020'),varnames=c('year','age'),value.name='waa.old')
+
+caa.comp <- Reduce(function(x, y) merge(x, y, all=TRUE), list(caa, caa.old, waa.old))
+caa.comp <- caa.comp[caa.comp$year !=2022,]                                                      # remove the recent years
+caa.comp <- ddply(caa.comp,c('year'),mutate,caan.rel=caan/max(caan),caan.old.rel=caan.old/max(caan.old))            # compare proportions instead of absolutes
+```
+
+# CAA PLOTS {.tabset}
+ 
+## Absolute
+```{r plot 1}
+grid.arrange(
+    ggplot(caa.comp,aes(x=year,y=age,size=caan))+geom_point(alpha=0.8)+ scale_size(range = c(1,8))+labs(title='NEW (absolute)',size='n'),
+    ggplot(caa.comp,aes(x=year,y=age,size=caan.old))+geom_point(alpha=0.8)+ scale_size(range = c(1,8))+labs(title='OLD (absolute)',size='n')
+)
+```
+
+## Relative
+```{r plot2,fig.height=6}
+caa.comp$res <- with(caa.comp,caan.rel-caan.old.rel)
+caa.comp$col <- ifelse(caa.comp$res<0,'-',ifelse(caa.comp$res==0,'0','+'))
+
+p1 <- ggplot(caa.comp,aes(x=year,y=as.factor(age),size=caan.rel))+
+        geom_point(alpha=0.8)+scale_size(range = c(1,5))+
+        labs(title='New CAA (annual proportions)',size='',y='',x='')+
+        theme(legend.position = 'none')+
+        scale_x_continuous(expand = c(0,0),limits=c(1967,2022))
+p2 <- ggplot(caa.comp,aes(x=year,y=as.factor(age),size=caan.old.rel))+
+        geom_point(alpha=0.8)+
+        scale_size(range = c(1,5))+
+        labs(title='Old CAA (annual proportions)',size='',y='',x='')+
+        scale_x_continuous(expand = c(0,0),limits=c(1967,2022))
+p3 <- ggplot(caa.comp[!is.na(caa.comp$res),],aes(x=year,y=as.factor(age),size=abs(res),col=col))+
+        geom_point(alpha=0.8)+
+        scale_size(range = c(1,5))+
+        scale_color_manual(values=c('darkred','darkgreen','black'))+
+        theme(legend.position = 'none')+
+        scale_x_continuous(expand = c(0,0),limits=c(1967,2022))+
+        labs(title='New CAA - old CAA (annual proportions)',x='Year',y='',size='abs(diff)',col='')
+l <- ggpubr::get_legend(p2)
+lay <- rbind(c(1,4),c(2,4),c(3,4))
+grid.arrange(p1,p2+theme(legend.position = 'none'),p3,l,left='Age',layout_matrix=lay,widths=c(0.9,0.1), padding = unit(0.1, "line"))
+```
+
+## Residual absolute
+If the difference is more than 100% the dots/triangles are black
+```{r plot 3}
+caa.comp$res <- with(caa.comp,(caan-caan.old)/caan.old)
+caa.comp$big <- ifelse(abs(caa.comp$res)>100,TRUE,FALSE)
+caa.comp$dir <- ifelse(caa.comp$res<0,'-',ifelse(caa.comp$res==0,'0','+'))
+ggplot()+
+    geom_point(data=caa.comp[caa.comp$big==FALSE,],aes(x=year,y=age,col=abs(res),shape=dir),size=4)+
+    geom_point(data=caa.comp[caa.comp$big==TRUE,],aes(x=year,y=age,shape=dir),col='black',size=4)+
+    labs(title='(NEW-OLD)/OLD')+
+    scale_color_viridis_c(direction = -1)
+```
+
+## Residual relative
+```{r plot 4}
+caa.comp$res <- with(caa.comp,caan.rel-caan.old.rel)
+caa.comp$col <- ifelse(caa.comp$res<0,'-',ifelse(caa.comp$res==0,'0','+'))
+ggplot(caa.comp[!is.na(caa.comp$res),],aes(x=year,y=age,size=abs(res),col=col))+
+    geom_point(alpha=0.8)+
+    scale_color_manual(values=c('darkred','darkgreen','black'))+
+    labs(title='New CAA - old CAA (annual proportions)',x='Year',y='Age',size='abs(diff)',col='')
+```
+
+## Correlation
+```{r plot 5}
+corr <- ddply(caa.comp[!is.na(caa.comp$caan.rel) & !is.na(caa.comp$caan.old.rel),],c('age'),summarise,corr=cor(caan.rel,caan.old.rel))
+ggplot(caa.comp,aes(x=caan.rel,y=caan.old.rel))+
+    geom_point()+
+    #geom_text(aes(label=year),size=2,hjust=0,vjust=0)+
+    geom_text(data=corr,aes(x=-Inf,y=Inf,label=round(corr,2)),vjust=1,hjust=-0.2,col='blue')+
+    geom_abline(slope=1,intercept=0)+
+    facet_wrap(~age,scale='free')+
+    labs(x='New CAA (Annual proportions)', y='Old CAA (Annual proportions)')
+```
+
+# WAA PLOTS{.tabset}
+
+## side-wise
+```{r plot 1b,fig.width=6}
+d <- melt(caa.comp[,c('year','age','waa','waa.old')],id=c('year','age'))
+levels(d$variable) <- c('new WAA','old WAA')
+ggplot(d,aes(x=year,y=value,col=as.factor(age)))+
+    geom_line()+
+    facet_wrap(~variable,ncol=1)+
+    scale_color_viridis_d()+
+    labs(x='Year',y='Weight (kg)')+
+    theme(legend.position = 'none')+
+    scale_x_continuous(expand=c(0,0))
+```
+
+## side-wise by age
+```{r plot 2b,fig.width = 10}
+ggplot(d,aes(x=year,y=value,group=variable,col=variable))+
+  geom_line(size=1,alpha=0.6)+
+  facet_wrap(~age,scale='free')+
+  scale_color_manual(values=c('red','black'))+
+  labs(x='Year',y='Weight (kg)',col='')
+```
+
+## Correlation
+```{r plot 3b}
+corr <- ddply(caa.comp[!is.na(caa.comp$waa.old) & !is.na(caa.comp$waa),],c('age'),summarise,corr=cor(waa,waa.old))
+ggplot(caa.comp,aes(x=waa,y=waa.old))+
+    geom_point()+
+    #geom_text(aes(label=year),size=2,hjust=0,vjust=0)+
+    geom_text(data=corr,aes(x=-Inf,y=Inf,label=round(corr,2)),vjust=1,hjust=-0.2,col='blue')+
+    geom_abline(slope=1,intercept=0)+
+    facet_wrap(~age,scale='free')+
+    labs(x='New WAA (kg)', y='Old WAA (kg)')
+```
+
+# History {.tabset}
+## changes
+```{r plot changes,fig.width=10}
+# proportions
+caa.hist.rel <- lapply(caa.hist, function(x) sweep(x,1,rowSums(x),'/'))
+
+# reshape
+caam <- lapply(names(caa.hist.rel), function(x) reshape2::melt(as.matrix(caa.hist.rel[[x]]),varnames=c('year','age'),value.name=x))
+caa.comp <- Reduce(function(x, y) merge(x, y, all=TRUE), caam)
+caa.comp <- caa.comp[order(caa.comp$year,caa.comp$age),]
+
+# difference
+caa.diff <- cbind(caa.comp[,c(1:2)],caa.comp[,3:ncol(caa.comp)]-caa.comp[,c(3,3:(ncol(caa.comp)-1))])
+names(caa.diff)[3:ncol(caa.diff)] <- paste(names(caa.diff)[3:ncol(caa.diff)],c(names(caa.diff)[3],names(caa.diff)[3:(ncol(caa.diff)-1)]),sep=" - ")
+caa.diff[,3] <- NULL
+
+ggplot(melt(caa.diff,id=c('year','age')),aes(x=year,y=age,fill=value))+
+    geom_tile(col='black')+
+    facet_wrap(~variable,ncol=2)+
+    scale_x_continuous(expand=c(0,0),limits=c(1967,2021))+
+    scale_y_continuous(expand=c(0,0))+
+    theme(axis.text.x = element_text(angle=45,hjust=1))+
+    scale_fill_gradient2(low=viridis(3)[1],high=viridis(3)[3],midpoint=0,mid = viridis(3)[2],na.value = 'transparent')+
+    labs(fill='',x='Year',y='Age')
+```

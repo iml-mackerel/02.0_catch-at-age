@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+data/
+Rdata/
+img/
+docs/data/
+docs/Rdata/
+docs/img/
+docs/csv/
+passwords.R

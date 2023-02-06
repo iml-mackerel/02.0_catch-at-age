@@ -1,0 +1,90 @@
+---
+title: "Match LF with ZIFF"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+    code_folding: show
+    number_sections: TRUE
+---
+    
+# SET-UP
+<!-- ```{r  markdown, echo=F} -->
+<!-- library(knitr) -->
+<!-- opts_chunk$set(echo = T, collapse = T, fig.align = "center", fig.width = 9, fig.height = 6) -->
+<!-- options(width = 140) -->
+<!-- ```     -->
+
+<!-- ## settings -->
+<!-- ```{r settings, message = F} -->
+<!-- source('0.0_settings.R') -->
+<!-- ``` -->
+
+<!-- ## load all data -->
+<!-- ```{r data lf, message = F} -->
+<!-- load(paste0(dir.rdat, "lf.Rdata"))                                   # from 1.0 read -->
+<!-- ``` -->
+
+<!-- ```{r data ziff, message = F} -->
+<!-- setwd('..')                                                            # go back to iml-mackerel dir -->
+<!-- load(paste0('./1.0_landings/Rdata/',tail(my.year,1),'/ziff.Rdata'))  -->
+<!-- ``` -->
+
+<!-- # TRIAL TO MATCH ZIFF WITH LF -->
+<!-- A big fail. no idea why they absolutely do not line up. -->
+
+<!-- Notes: -->
+<!-- 1 landing can be multiple lines if multiday trip with various catch dates -->
+<!-- 1 landing can be multiple lines with difference values of catch, despite that ALL OTHER INFO IS IDENTICAL!! I assume those are additive? -->
+<!-- 1 landing can be multiple lines if fisher on the same date did two sets with different coordinates and they were entered as such -->
+<!-- The port sampler would take an lf sample for this 1 true landings only, despite multiple lines. Need to reduce to one line. -->
+
+<!-- ```{r bio} -->
+<!-- ## to find what lf/bio samples belonged to what catch, I first need to create a list of all unique landing events -->
+<!-- land0 <- ziff -->
+<!-- nrow(land0) -->
+
+<!-- # step 1: replace missing catch with other values if available (catch.land or catch.value/average annual price) (necessary for step 2) -->
+<!-- land1 <- ddply(land0,c('year'),transform,function(x){ -->
+<!--     price=mean(x$catch.value/x$catch,na.rm=TRUE) -->
+<!--     catch2=ifelse(is.na(x$catch),catch=x$catch.landed,x$catch) -->
+<!--     catch2=ifelse(is.na(catch2),catch=x$catch.value/price,x$catch) -->
+<!--     return(cbind(price=price,catch=catch2)) -->
+<!-- }) -->
+
+<!-- # step 2: remove quasi-duplicates (lines that only differ in terms of catch.landed and catch.value, but not actual catch - presume only one is true) -->
+<!-- land2 <- land1[,-which(colnames(land1) %in% c('catch.landed','catch.value'))] -->
+<!-- land2 <- land2[!duplicated(land2),] -->
+<!-- nrow(land2) -->
+
+<!-- # step 3: sum catch of same landing date/vessel/location/etc, but difference catch date, catch location, or catch weight (so the  "true" landing the port sampler saw) -->
+<!-- land3 <- ddply(land2,c('year','gear.cat','nafo.sub','land.date','prov.land','npbc','catch','port.land','species.maintarg','trip.nr'),summarise,catch=sum(catch,na.rm=TRUE)) -->
+<!-- land3 <- unique(land3)  -->
+<!-- nrow(land3) -->
+
+<!-- # step 4: try merging -->
+<!-- names(land3) <- c("year","gear", "nafo.sub", "date", "prov", "nbpc", "port.land", "species.maintarg", "trip", "catch") -->
+<!-- lf.samp <- unique(lf[,c('year','gear','sample.id','trip','nafo.sub','date','prov','nbpc','wcatch')]) # all landings for which a sample was taken  -->
+<!-- lf.samp$date <- as.Date(lf.samp$date) -->
+
+<!-- ys <- intersect(unique(lf.samp$year),unique(land3$year)) -->
+<!-- test <- merge(lf.samp[lf.samp$year %in% ys,],land3[land3$year %in% ys,],all.x=TRUE,by=c('gear','nafo.sub','date','prov','nbpc')) # better if I remove trip -->
+
+<!-- nrow(test) -->
+<!-- nrow(test[is.na(test$catch),]) # all the remaining NA's (nearly all) -->
+
+<!-- # check random lines of lf directly in ziff: there seems to be absolutely no landing with which could be matched... -->
+<!-- # one example -->
+<!-- lf[lf$year==2000,][1,] # first sample of 2000 -->
+<!-- with(ziff,ziff[year==2000 & land.date=="2000-05-30" & nafo.sub=="4VN" & gear.cat=="FPN",]) # different npbc -->
+<!-- with(ziff,ziff[year==2000 & npbc==027176,]) # different npbc -->
+
+<!-- nbpcmatch <- ldply(ys,function(x){ -->
+<!--     round(length(intersect(unique(lf[lf$year==x,]$nbpc),unique(ziff[ziff$year==x,]$npbc)))/length(unique(lf[lf$year==x,]$nbpc))*100) -->
+<!-- }) -->
+
+<!-- kable(nbpcmatch,caption = "Percentage of unique npbc numbers in lf database that are in the landings (100% if all npbc in lf dataset are also in ziff files)") -->
+<!-- ``` -->

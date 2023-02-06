@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2023-02-06" />
+
+<title>Catch-at-age: by period</title>
+
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Mackerel CAA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="0.0_settings.html">
+    <span class="fa fa-cogs"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="1.0_read.html">Data</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    CAA
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="2.0_caa.html">Calculation</a>
+    </li>
+    <li>
+      <a href="2.1_caa_comparison.html">Comparison</a>
+    </li>
+    <li>
+      <a href="2.2_caa_assessment.html">Assessment</a>
+    </li>
+    <li>
+      <a href="2.3_caa_region.html">Regional</a>
+    </li>
+    <li>
+      <a href="2.4_caa_gear.html">Gear</a>
+    </li>
+    <li>
+      <a href="2.5_caa_period.html">Period</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Testing
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="3.3_test_caa_2022.html">Test 2022</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Catch-at-age: by period</h1>
+<h4 class="date">2023-02-06</h4>
+
+</div>
+
+
+<div id="catch-at-age-by-period" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Catch-at-age: by
+period</h1>
+</div>
+<div id="set-up" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> SET-UP</h1>
+<div id="settings" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> settings</h2>
+<pre class="r"><code>source(&#39;0.0_settings.R&#39;)</code></pre>
+</div>
+<div id="load-all-data" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> load all data</h2>
+<pre class="r"><code>load(paste0(dir.rdat, &quot;catch.caa.Rdata&quot;))
+load(paste0(dir.rdat, &quot;lf.caa.Rdata&quot;))
+load(paste0(dir.rdat, &quot;bio.caa.Rdata&quot;))
+load(paste0(dir.rdat, &quot;lw.mod.Rdata&quot;))
+lf.caa[,which(names(lf.caa) %in% names(lw.mod)[-c(1:2)])] &lt;- NULL       # remove model details
+catch.caa &lt;- catch.caa[catch.caa$year %in% unique(lf.caa$year),]        # years for which bio/lf</code></pre>
+</div>
+</div>
+<div id="catch-at-age-by-period-1" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> CATCH-AT-AGE BY
+period</h1>
+<pre class="r"><code>catch.diffused.periodR &lt;- paste0(dir.rdat, &quot;catch.diffused.period.Rdata&quot;)
+caa.periodR &lt;- paste0(dir.rdat, &quot;caa.period.Rdata&quot;)
+
+these.period &lt;- c(2,3,4)
+
+if(!all(file.exists(c(catch.diffused.periodR,caa.periodR)))){
+    # step 1) get samples
+    
+    catch.diffused.period &lt;- ldply(these.period,function(x){
+        print(x)
+        
+        years &lt;- my.year[my.year&gt;=1976 &amp; my.year %in% unique(lf.caa[lf.caa$period==x,&#39;year&#39;])] 
+        
+        lf.period &lt;- lf.caa[lf.caa$period==x &amp; !is.na(lf.caa$period) &amp; lf.caa$year %in% years,]
+        al.period &lt;- bio.caa[bio.caa$period==x &amp; !is.na(bio.caa$period) &amp; bio.caa$year %in% years,]
+        ca.period &lt;- catch.caa[catch.caa$period==x &amp; !is.na(catch.caa$period) &amp; catch.caa$year %in% years,]
+        
+        catch.diffused &lt;- get.samples(catch=ca.period,
+                                      lf=lf.period, 
+                                      al=al.period,
+                                      min.lf.samples =2,          # min samples for length-frequency
+                                      min.al.samples =2,          # min samples for age-length key
+                                      min.al.fish = 12,
+                                      period.unit=&#39;quarter&#39;)   # quarterly grouping instead of monthly
+        
+        catch.diffused$age.0 &lt;- NULL                                             # remove age 0 ?? (total landings somewhat smaller)
+        catch.diffused &lt;- catch.diffused[catch.diffused$length!=-1,]           # remove instances where threshold not reached (CAA will only represent part of catch; see checks later)
+        catch.diffused &lt;- catch.diffused[catch.diffused$option.lengthfreq&lt;7,]  # don&#39;t allow to take info neighboring years for length frequencies (but yes for age length)
+        return(catch.diffused)
+    })
+    save(catch.diffused.period, file =  catch.diffused.periodR)
+    
+    caa.period &lt;- ddply(catch.diffused.period,c(&#39;period&#39;),function(x){x[is.na(x)]&lt;-0;get.caa(x,plus=10)})
+    
+    save(caa.period, file =  caa.periodR)
+}else{ 
+    load(caa.periodR)
+    load(catch.diffused.periodR)
+}</code></pre>
+<div id="check" class="section level2 tabset" number="3.1">
+<h2 class="tabset"><span class="header-section-number">3.1</span>
+CHECK</h2>
+<div id="samples" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> samples</h3>
+<pre class="r"><code>check &lt;- ddply(catch.diffused.period,c(&#39;id&#39;,&#39;period&#39;),summarise,
+               option.lengthfreq=unique(option.lengthfreq),
+               nsample.lengthfreq=unique(nsample.lengthfreq),
+               nfish.lengthfreq=sum(n.lf),
+               option.agelength=unique(option.agelength),
+               nsample.agelength=unique(nsample.agelength),
+               nfish.agekey=sum(n.al))
+check &lt;- reshape2::melt(check,id=c(&#39;id&#39;,&#39;period&#39;))
+ggplot(check,aes(x=value))+geom_histogram(bins=30)+facet_grid(period~variable,scale=&#39;free&#39;)  # period and period can only rarely be matched</code></pre>
+<p><img src="2.5_caa_period_files/figure-html/caa%20check%20samples-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+<div id="total" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> total</h3>
+<pre class="r"><code>tot &lt;- ddply(catch.caa[catch.caa$period %in% these.period,],c(&#39;year&#39;,&#39;period&#39;),summarise,catch=sum(catch))
+ggplot(caa.period,aes(x=year))+
+    geom_bar(stat=&#39;identity&#39;,aes(y=caaw,fill=as.factor(age)))+
+    geom_line(data=tot,aes(y=catch),size=1)+
+    facet_wrap(~period,scale=&#39;free_y&#39;)+
+    scale_fill_viridis_d()+
+    labs(y=&quot;Landings (t)&quot;,x=&#39;Year&#39;,fill=&#39;Age&#39;)+
+    scale_y_continuous(expand=c(0,0))</code></pre>
+<p><img src="2.5_caa_period_files/figure-html/caa%20check%20total-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="plots" class="section level1 tabset" number="4">
+<h1 class="tabset"><span class="header-section-number">4</span>
+PLOTS</h1>
+<div id="caan-abs" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> CAAN abs</h2>
+<pre class="r"><code>ggplot(caa.period,aes(x=year,y=age,size=caan))+
+    geom_point(alpha=0.8)+ scale_size(range = c(1,10))+
+    facet_wrap(~period,ncol=1)+
+    scale_y_continuous(breaks=min(caa.period$age):max(caa.period$age))</code></pre>
+<p><img src="2.5_caa_period_files/figure-html/caan%20plot-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="caan-rel" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> CAAN rel</h2>
+<pre class="r"><code>df &lt;- caa.period[!is.na(caa.period$caan),]
+df &lt;- ddply(df,c(&#39;year&#39;,&#39;period&#39;),mutate,caan.rel=caan/max(caan))
+ggplot(df,aes(x=year,y=age,size=caan.rel))+
+    geom_point(alpha=0.8)+ 
+    scale_size(range = c(1,6))+
+    facet_wrap(~period,ncol=1)+
+    scale_y_continuous(breaks=min(df$age):max(df$age))</code></pre>
+<p><img src="2.5_caa_period_files/figure-html/caan%20rel-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="caan-arrow" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> CAAN arrow</h2>
+<pre class="r"><code>df &lt;- caa.period[!is.na(caa.period$caan),]
+df &lt;- ddply(df,c(&#39;year&#39;,&#39;period&#39;),mutate,caan.rel=caan/max(caan))
+
+# autodetermine cohorts
+m &lt;- acast(df[df$period==3,],age~year,value.var = &#39;caan.rel&#39;)
+a &lt;- cohort(m)
+a &lt;- a[a$strength&gt;=quantile(a$strength, 0.85, na.rm=TRUE),]   # 15% strongest years in the southern gulf
+a$year &lt;- a$year + min(df$age)
+a$age &lt;- min(df$age)
+a$agemax &lt;- max(df$age)
+a$yearend &lt;- a$year+max(df$age)-min(df$age)
+a$label &lt;- a$year-1
+
+# just select some myself
+a &lt;- data.frame(year = c(1976, 1983, 1989, 2000), # four largest peaks according to assessment
+                age = c(2, 1, 1, 1), 
+                agemax = c(10, 10, 10, 10), 
+                yearend = c(1984,1992, 1998, 2009),
+                label = c(1978, 1982, 1988, 1999))
+
+ggplot(df,aes(x=year,y=age))+
+    geom_point(alpha=0.8,aes(size=caan.rel))+ 
+    scale_size(range = c(1,7))+
+    facet_wrap(~period,ncol=1)+
+    geom_segment(data=a,aes(xend=yearend,yend=agemax),col=&#39;red&#39;,linewidth=1)+
+    geom_text(data=a,aes(x=yearend,y=agemax,label=label),col=&#39;red&#39;,size=3,hjust=0,vjust=-1)+
+    coord_cartesian(xlim=range(df$year),clip=&#39;off&#39;)+
+    scale_y_continuous(breaks=min(caa.period$age):max(caa.period$age))+
+    labs(x=&#39;Year&#39;,y=&#39;Age&#39;,size=&#39;&#39;)</code></pre>
+<p><img src="2.5_caa_period_files/figure-html/caan%20arrow-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="caaw" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> CAAW</h2>
+<pre class="r"><code>ggplot(caa.period,aes(x=year,y=age,size=caaw))+
+    geom_point(alpha=0.8)+ scale_size(range = c(1,10))+
+    facet_wrap(~period,ncol=1)+
+    scale_y_continuous(breaks=min(caa.period$age):max(caa.period$age))</code></pre>
+<p><img src="2.5_caa_period_files/figure-html/caaw%20plot-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="waa" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> WAA</h2>
+<pre class="r"><code>ggplot(caa.period,aes(x=year,y=waa,group=age))+
+    geom_line(aes(color=age),size=1)+
+    facet_wrap(~period,ncol=1)+
+    scale_color_viridis()
+## Warning: Removed 11 rows containing missing values (`geom_line()`).</code></pre>
+<p><img src="2.5_caa_period_files/figure-html/waa%20plot-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+name: "Mackerel"
+output_dir: "docs"
+navbar:
+  title: "Mackerel CAA"
+  left:
+    - icon: fa-cogs
+      href: 0.0_settings.html
+    - text: "Data"
+      href: 1.0_read.html
+    - text: "CAA"
+      menu:
+        - text: "Calculation"
+          href: 2.0_caa.html
+        - text: "Comparison"
+          href: 2.1_caa_comparison.html
+        - text: "Assessment"
+          href: 2.2_caa_assessment.html
+        - text: "Regional"
+          href: 2.3_caa_region.html
+        - text: "Gear"
+          href: 2.4_caa_gear.html
+        - text: "Period"
+          href: 2.5_caa_period.html
+    - text: "Testing"
+      menu:
+        - text: "Test 2022"
+          href: 3.3_test_caa_2022.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    css: styles.css
