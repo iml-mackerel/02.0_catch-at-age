@@ -147,7 +147,7 @@ caa.inter <- caa.inter[order(caa.inter$age,caa.inter$year),]
 par(mfrow=c(5,2))
 caa.inter$waa.interpol <- ddply(caa.inter,c('age'),summarise,waa.interpol=interpol(year,waa,"linear",from = 1968,to=tail(my.year,1),title = age[1])[,6])[,2]
 
-write.csv(caa,paste0('csv/',tail(my.year,1),'/caa_interpol.csv'))
+write.csv(caa.inter,paste0('csv/',tail(my.year,1),'/caa_interpol.csv'))
 ```
 
 ## Plot
