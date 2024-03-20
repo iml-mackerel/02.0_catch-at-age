@@ -111,7 +111,8 @@ ggplot(caa.comp,aes(x=as.factor(age),y=caan.prop,fill=run,group=run))+
     geom_bar(stat='identity',position='dodge')+
     facet_grid(year~.)+
     scale_y_continuous(expand=c(0,0))+
-    labs(y='Proportion landed',x='Age')
+    labs(y='Proportion landed',x='Age')+
+    theme(legend.position = 'top')
 
 ```
 

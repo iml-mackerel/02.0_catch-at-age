@@ -153,12 +153,17 @@ write.csv(caa.inter,paste0('csv/',tail(my.year,1),'/caa_interpol.csv'),row.names
 
 ## Plot
 ```{r waa interpolplot, message = F}
-ggplot(caa.inter,aes(x=year,y=waa.interpol,col=as.factor(age)))+
+p <- ggplot(caa.inter,aes(x=year,y=waa.interpol,col=as.factor(age)))+
     geom_line()+
     scale_color_viridis_d()+
     scale_x_continuous(expand=c(0,0))+
-    labs(y='weight (kg)',x='Year')+
+    labs(y='Catch weight (kg)',x='Year')+
     theme(legend.position = 'none')
+p
+
+p <- p+labs(y='Poids dans le captures (kg)',x='Année')
+ggsave(paste0('waac_',Sys.Date(),'_FR.png'),p,'png','img/output',width = 15,height = 8,units = 'cm')
+
 ```
 
 

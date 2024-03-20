@@ -10,11 +10,11 @@
 
 
 
-<meta name="date" content="2023-02-06" />
+<meta name="date" content="2024-02-15" />
 
 <title>Catch-at-age: test 2022</title>
 
-<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -30,15 +30,15 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -401,16 +401,25 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Catch-at-age: test 2022</h1>
-<h4 class="date">2023-02-06</h4>
+<h4 class="date">2024-02-15</h4>
 
 </div>
 
 
 <div id="set-up" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> SET-UP</h1>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 4.3.2</code></pre>
 <div id="settings" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> settings</h2>
-<pre class="r"><code>source(&#39;0.0_settings.R&#39;)</code></pre>
+<pre class="r"><code>source(&#39;0.0_settings.R&#39;)
+## Warning: package &#39;ggplot2&#39; was built under R version 4.3.2
+## Warning: package &#39;gridExtra&#39; was built under R version 4.3.2
+## Warning: package &#39;viridis&#39; was built under R version 4.3.2
+## Warning: package &#39;plyr&#39; was built under R version 4.3.2
+## Warning: package &#39;reshape2&#39; was built under R version 4.3.2
+## Warning: package &#39;lubridate&#39; was built under R version 4.3.2
+## Warning: package &#39;TMB&#39; was built under R version 4.3.2
+## Warning: package &#39;RcppEigen&#39; was built under R version 4.3.2</code></pre>
 </div>
 <div id="load-all-data" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> load all data</h2>
@@ -503,7 +512,8 @@ ggplot(caa.comp,aes(x=as.factor(age),y=caan.prop,fill=run,group=run))+
     geom_bar(stat=&#39;identity&#39;,position=&#39;dodge&#39;)+
     facet_grid(year~.)+
     scale_y_continuous(expand=c(0,0))+
-    labs(y=&#39;Proportion landed&#39;,x=&#39;Age&#39;)
+    labs(y=&#39;Proportion landed&#39;,x=&#39;Age&#39;)+
+    theme(legend.position = &#39;top&#39;)
 ## Warning: Removed 9 rows containing missing values (`geom_bar()`).</code></pre>
 <p><img src="3.3_test_caa_2022_files/figure-html/plot%201-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
