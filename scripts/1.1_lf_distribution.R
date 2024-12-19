@@ -4,7 +4,7 @@
 #############################################################################################################################
 
 # wd
-wdimg <- 'img/lf/'
+wdimg <- paste0('../../img/',tail(my.year,1),'/lf/')
 dir.create(wdimg,recursive = T,showWarnings = F)
 
 # plots
