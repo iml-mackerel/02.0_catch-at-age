@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-12-17" />
+<meta name="date" content="2025-01-30" />
 
 <title>Catch-at-age</title>
 
@@ -401,7 +401,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Catch-at-age</h1>
-<h4 class="date">2024-12-17</h4>
+<h4 class="date">2025-01-30</h4>
 
 </div>
 
@@ -454,7 +454,7 @@ if(!file.exists(lw.modR)){
 # Creation time
 df &lt;- file.info(list.files(dir.rdat, full.names = T,pattern=&quot;lw&quot;))
 df[which.max(df$mtime),&#39;mtime&#39;]
-## [1] &quot;2024-12-16 14:32:54 EST&quot;</code></pre>
+## [1] &quot;2025-01-30 13:41:49 EST&quot;</code></pre>
 <div id="check" class="section level2 tabset" number="2.1">
 <h2 class="tabset"><span class="header-section-number">2.1</span>
 CHECK</h2>
@@ -549,7 +549,7 @@ if(!file.exists(lf.caaR)){
 # Creation time
 df &lt;- file.info(list.files(dir.rdat, full.names = T,pattern=&quot;lf&quot;))
 df[which.max(df$mtime),&#39;mtime&#39;]
-## [1] &quot;2024-12-16 14:32:57 EST&quot;</code></pre>
+## [1] &quot;2025-01-30 13:41:52 EST&quot;</code></pre>
 </div>
 <div id="check-1" class="section level2 tabset" number="3.3">
 <h2 class="tabset"><span class="header-section-number">3.3</span>
@@ -1010,9 +1010,9 @@ kable(lf.overall, caption = &quot;Sample info (samples &gt;70fish)&quot;)</code>
 </tr>
 <tr class="odd">
 <td align="right">2024</td>
-<td align="right">69</td>
-<td align="right">11138</td>
-<td align="right">161</td>
+<td align="right">71</td>
+<td align="right">11363</td>
+<td align="right">160</td>
 <td align="right">93</td>
 <td align="right">238</td>
 </tr>
@@ -1425,9 +1425,9 @@ kable(dfp)</code></pre>
 <td align="right">2024</td>
 <td align="right">0</td>
 <td align="right">15</td>
-<td align="right">44</td>
+<td align="right">46</td>
 <td align="right">10</td>
-<td align="right">69</td>
+<td align="right">71</td>
 </tr>
 </tbody>
 </table>
@@ -1934,13 +1934,13 @@ kable(dfr)</code></pre>
 </tr>
 <tr class="odd">
 <td align="right">2024</td>
-<td align="right">3</td>
+<td align="right">5</td>
 <td align="right">0</td>
 <td align="right">27</td>
 <td align="right">0</td>
 <td align="right">23</td>
 <td align="right">16</td>
-<td align="right">69</td>
+<td align="right">71</td>
 </tr>
 </tbody>
 </table>
@@ -2349,11 +2349,11 @@ kable(dfg)</code></pre>
 </tr>
 <tr class="odd">
 <td align="right">2024</td>
-<td align="right">12</td>
+<td align="right">14</td>
 <td align="right">56</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="right">69</td>
+<td align="right">71</td>
 </tr>
 </tbody>
 </table>
@@ -2397,7 +2397,7 @@ names(bio.caa)[6] &lt;- &#39;age&#39;
 table(bio.caa$age)
 ## 
 ##     0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    42    63 
-##  1668 12988 29540 28834 19235 12737  9061  6420  3907  3077  1934  1166   474   195    95    39    20     7     6     1     1
+##  1683 12989 29553 28859 19265 12749  9063  6419  3907  3077  1934  1166   474   195    95    39    20     7     6     1     1
 bio.caa &lt;- bio.caa[bio.caa$age&lt;18,]    # 4 out of 6 fish have wrong length, very unsure about remaining two
 
 # length not matching
@@ -2406,7 +2406,7 @@ bio.caa[bio.caa$age==0 &amp; bio.caa$length&gt;300,&#39;outlier&#39;] &lt;- TRUE
 table(bio.caa$outlier,bio.caa$age)
 ##        
 ##             0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17
-##   FALSE  1596 12982 29524 28810 19215 12732  9055  6418  3905  3075  1934  1166   474   194    95    39    20     7
+##   FALSE  1611 12983 29537 28835 19245 12744  9057  6417  3905  3075  1934  1166   474   194    95    39    20     7
 ##   TRUE     72     6    16    24    20     5     6     2     2     2     0     0     0     1     0     0     0     0
 
 # check
@@ -2428,7 +2428,7 @@ bio.caa$outlier &lt;- NULL
 table(bio.caa$period,useNA = &#39;always&#39;)
 ## 
 ##     1     2     3     4  &lt;NA&gt; 
-##   683 31677 72492 26389     0
+##   683 31677 72597 26381     0
 
 # REGION: large scale regions 
 bio.caa$region &lt;- group.region[match(bio.caa$nafo,group.region$nafo),&#39;region&#39;]
@@ -2436,14 +2436,14 @@ bio.caa$nafo &lt;- NULL
 table(bio.caa$region,useNA = &#39;always&#39;)
 ## 
 ##   eNL  nGSL  sGSL   sNL    SS   wNL  &lt;NA&gt; 
-## 21685  1760 61243  2586 29116 14851     0
+## 21746  1760 61243  2586 29113 14890     0
 
 # GEAR: similar selectivity gears
 bio.caa$gear &lt;- group.gear[match(bio.caa$gear,group.gear$gear.cat),&#39;gear.group&#39;]
 table(bio.caa$gear,useNA = &#39;always&#39;)
 ## 
 ##                Gillnets                   Lines                    Misc Seines_Nets_Traps_Weirs                    &lt;NA&gt; 
-##                   38302                   40555                    4145                   48239                       0
+##                   38363                   40591                    4145                   48239                       0
 
 ## make equal length classes
 bio.caa$length &lt;- roundFish(bio.caa$length,5) 
@@ -2881,16 +2881,16 @@ kable(al.overall)</code></pre>
 </tr>
 <tr class="odd">
 <td align="right">2023</td>
-<td align="right">81</td>
-<td align="right">2998</td>
+<td align="right">82</td>
+<td align="right">3026</td>
 <td align="right">37</td>
 <td align="right">23</td>
 <td align="right">59</td>
 </tr>
 <tr class="even">
 <td align="right">2024</td>
-<td align="right">62</td>
-<td align="right">2086</td>
+<td align="right">64</td>
+<td align="right">2155</td>
 <td align="right">34</td>
 <td align="right">18</td>
 <td align="right">65</td>
@@ -3320,17 +3320,17 @@ kable(dfp)</code></pre>
 <td align="right">2023</td>
 <td align="right">0</td>
 <td align="right">11</td>
-<td align="right">57</td>
+<td align="right">58</td>
 <td align="right">13</td>
-<td align="right">81</td>
+<td align="right">82</td>
 </tr>
 <tr class="even">
 <td align="right">2024</td>
 <td align="right">0</td>
 <td align="right">17</td>
-<td align="right">35</td>
+<td align="right">37</td>
 <td align="right">10</td>
-<td align="right">62</td>
+<td align="right">64</td>
 </tr>
 </tbody>
 </table>
@@ -3862,18 +3862,18 @@ kable(dfr)</code></pre>
 <td align="right">28</td>
 <td align="right">0</td>
 <td align="right">22</td>
-<td align="right">20</td>
-<td align="right">81</td>
+<td align="right">21</td>
+<td align="right">82</td>
 </tr>
 <tr class="even">
 <td align="right">2024</td>
-<td align="right">3</td>
+<td align="right">5</td>
 <td align="right">0</td>
 <td align="right">21</td>
 <td align="right">0</td>
 <td align="right">21</td>
 <td align="right">17</td>
-<td align="right">62</td>
+<td align="right">64</td>
 </tr>
 </tbody>
 </table>
@@ -4299,18 +4299,18 @@ kable(dfg)</code></pre>
 <tr class="odd">
 <td align="right">2023</td>
 <td align="right">14</td>
-<td align="right">67</td>
+<td align="right">68</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">81</td>
+<td align="right">82</td>
 </tr>
 <tr class="even">
 <td align="right">2024</td>
-<td align="right">13</td>
+<td align="right">15</td>
 <td align="right">49</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">62</td>
+<td align="right">64</td>
 </tr>
 </tbody>
 </table>
@@ -4354,17 +4354,17 @@ catch.caa$period &lt;- ceiling(catch.caa$month/3)
 table(catch.caa$month,useNA = &#39;always&#39;)
 ## 
 ##     1     2     3     4     5     6     7     8     9    10    11    12  &lt;NA&gt; 
-##  1278   815   822  1966 12071 50432 25914 63609 66531 30869  7649   780     8
+##  1278   815   822  1966 12235 51779 26051 63843 66533 30866  7642   780     8
 catch.caa$month &lt;- NA
 
 # 2) REGION: large scale regions 
 catch.caa$region &lt;- group.region[match(catch.caa$nafo,group.region$nafo),&#39;region&#39;]
 table(catch.caa$gear,useNA = &#39;always&#39;)
 ## 
-##   FIX   FPN   FWR    GN   GND   GNS   LHM   LHP   LLS    LX   MIS    NK   OTB OTB-1 OTB-2  OTB*   OTM OTM-1 OTM-2  OTM*    PS    SB   SDN 
-##     8 13595   607 52150  2132 52207 13837 96850  1394    67  1116   133  8761    59   378    57    24     8   114    22  1068  4830 11305 
-##   SPR   SSC  &lt;NA&gt; 
-##     4     2  2016
+##   FIX   FPN   FWR    GN   GND   GNS   LHM   LHP   LLS   MIS    NK   OTB OTB-1 OTB-2  OTB*   OTM OTM-1 OTM-2  OTM*    PS    SB   SDN   SPR 
+##     8 13595   607 52138  2123 53235 13880 97622  1394  1116   133  8762    59   378    57    24     8   114    22  1065  4830 11305     4 
+##   SSC  &lt;NA&gt; 
+##     2  2137
 catch.caa$nafo &lt;-NULL
 
 # 3) GEAR: similar selectivity gears
@@ -4372,7 +4372,7 @@ catch.caa$gear &lt;- group.gear[match(catch.caa$gear.cat,group.gear$gear.cat),&#
 table(catch.caa$gear,useNA = &#39;always&#39;)
 ## 
 ##                Gillnets                   Lines                    Misc Seines_Nets_Traps_Weirs                    &lt;NA&gt; 
-##                  106489                  112148                   10042                   31409                    2656
+##                  107496                  112896                   10043                   31406                    2777
 
 ## total catch by level
 catch.caa &lt;- ddply(catch.caa,c(&#39;year&#39;,&#39;region&#39;,&#39;period&#39;,&#39;gear&#39;),summarise,catch=sum(catch,na.rm = T))

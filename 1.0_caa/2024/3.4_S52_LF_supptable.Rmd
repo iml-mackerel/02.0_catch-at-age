@@ -24,7 +24,7 @@ source('0.0_settings.R')
 ```
 
 ## load all data
-```{r data, message = F}
+```{r data, message = F, fig.width=6, fig.height=4}
 lfR <- paste0(dir.rdat,"lf.Rdata")
 load(lfR)
 # weight landed for S52 license samples
@@ -32,21 +32,22 @@ y <- 2024
 
 sam <- lf[lf$year>=2022,]
 sam <-  sam %>%  filter(source==91 | (source==99 & sample.id %in% c(73833:73838,73840))) %>% 
-    dplyr::select('year','sample.id','month','wcatch','date','nafo','nbpc','source','gear','prov')
-    
-unique(sam[sam$source==91,c()])
+    dplyr::select('year','sample.id','month','wcatch','date','nafo','nbpc','source','gear','prov') %>%  distinct()
+
+sam[is.na(sam$wcatch),'wcatch'] <- 300 # temporary 
 nrow(sam)                               # wo two from Jerry
 
-catch.sam <- ddply(sam,c('year','month','nafo','gear','prov'),summarise,catch=sum(wcatch)/1000)
+catch.sam <- ddply(sam,c('year','month','nafo','gear','prov'),summarise,catch=sum(wcatch/1000))
 
 catch.sam$country <- 'Canada'
 catch.sam$source <- 'S52'
 names(catch.sam)[which(names(catch.sam)=='gear')] <-'gear.cat'
 
-catch.sam %>%  ggplot(aes(x=month, y=catch, fill=prov)) +geom_bar(stat="identity") +facet_wrap(~year) +
-    scale_fill_viridis_d()
+pc<- catch.sam %>%  ggplot(aes(x=month, y=catch, fill=prov)) +geom_bar(stat="identity") +facet_wrap(~year) +
+    scale_fill_viridis_d(name="") 
+pc + labs(x="Mois | Month", y="Captures | Catch (t)")
 
-catch.sam  %>%  group_by(year) %>%  summarize(catchs52=sum(catch, na.rm=T))
+kable(catch.sam  %>%  group_by(year) %>%  summarize(catchs52=sum(catch, na.rm=T)))
 
 write.csv(catch.sam, paste0("../../csv/",max(my.year), "/S52_catch.csv"), row.names=F)
 

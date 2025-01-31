@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-12-16" />
+<meta name="date" content="2025-01-30" />
 
 <title>Catch-at-age: length-frequencies Supplementary table</title>
 
@@ -402,7 +402,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Catch-at-age: length-frequencies
 Supplementary table</h1>
-<h4 class="date">2024-12-16</h4>
+<h4 class="date">2025-01-30</h4>
 
 </div>
 
@@ -418,24 +418,53 @@ Supplementary table</h1>
 <pre class="r"><code>lfR &lt;- paste0(dir.rdat,&quot;lf.Rdata&quot;)
 load(lfR)
 # weight landed for S52 license samples
-y &lt;- 2022
+y &lt;- 2024
 
-sam &lt;- lf[lf$year&gt;=y,]
-sam &lt;-  unique(sam[sam$source==91,c(&#39;year&#39;,&#39;sample.id&#39;,&#39;month&#39;,&#39;wcatch&#39;,&#39;date&#39;,&#39;nafo&#39;,&#39;nbpc&#39;,&#39;source&#39;,&#39;gear&#39;,&#39;prov&#39;)])
+sam &lt;- lf[lf$year&gt;=2022,]
+sam &lt;-  sam %&gt;%  filter(source==91 | (source==99 &amp; sample.id %in% c(73833:73838,73840))) %&gt;% 
+    dplyr::select(&#39;year&#39;,&#39;sample.id&#39;,&#39;month&#39;,&#39;wcatch&#39;,&#39;date&#39;,&#39;nafo&#39;,&#39;nbpc&#39;,&#39;source&#39;,&#39;gear&#39;,&#39;prov&#39;) %&gt;%  distinct()
+
+sam[is.na(sam$wcatch),&#39;wcatch&#39;] &lt;- 300 # temporary 
 nrow(sam)                               # wo two from Jerry
-## [1] 221
+## [1] 231
 
-sam[is.na(sam$wcatch),&#39;wcatch&#39;] &lt;- 300 # temporary
-sum(sam$wcatch)
-## [1] 54840
-
-#ddply(sam,c(&#39;nafo&#39;),summarise,sum(wcatch))
-
-catch.sam &lt;- ddply(sam,c(&#39;year&#39;,&#39;month&#39;,&#39;nafo&#39;,&#39;gear&#39;,&#39;prov&#39;),summarise,catch=sum(wcatch)/1000)
+catch.sam &lt;- ddply(sam,c(&#39;year&#39;,&#39;month&#39;,&#39;nafo&#39;,&#39;gear&#39;,&#39;prov&#39;),summarise,catch=sum(wcatch/1000))
 
 catch.sam$country &lt;- &#39;Canada&#39;
 catch.sam$source &lt;- &#39;S52&#39;
 names(catch.sam)[which(names(catch.sam)==&#39;gear&#39;)] &lt;-&#39;gear.cat&#39;
+
+pc&lt;- catch.sam %&gt;%  ggplot(aes(x=month, y=catch, fill=prov)) +geom_bar(stat=&quot;identity&quot;) +facet_wrap(~year) +
+    scale_fill_viridis_d(name=&quot;&quot;) 
+pc + labs(x=&quot;Mois | Month&quot;, y=&quot;Captures | Catch (t)&quot;)</code></pre>
+<p><img src="3.4_S52_LF_supptable_files/figure-html/data-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+kable(catch.sam  %&gt;%  group_by(year) %&gt;%  summarize(catchs52=sum(catch, na.rm=T)))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="right">catchs52</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2022</td>
+<td align="right">19.325</td>
+</tr>
+<tr class="even">
+<td align="right">2023</td>
+<td align="right">22.753</td>
+</tr>
+<tr class="odd">
+<td align="right">2024</td>
+<td align="right">15.070</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>
+write.csv(catch.sam, paste0(&quot;../../csv/&quot;,max(my.year), &quot;/S52_catch.csv&quot;), row.names=F)
+
 
 catch.n &lt;-  sam %&gt;%  group_by(year, month, nafo) %&gt;%  tally() %&gt;%  pivot_wider(names_from=nafo, values_from=n)
 
@@ -492,42 +521,42 @@ N</h2>
 <tr class="even">
 <td align="right">2024</td>
 <td align="left">6</td>
-<td align="right">6</td>
+<td align="right">9</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">3</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">2</td>
-<td align="right">11</td>
+<td align="right">14</td>
 <td align="left">Canada</td>
 <td align="left">S52</td>
 </tr>
 <tr class="odd">
 <td align="right">2024</td>
 <td align="left">7</td>
-<td align="right">7</td>
+<td align="right">10</td>
 <td align="right">0</td>
 <td align="right">3</td>
 <td align="right">5</td>
 <td align="right">1</td>
 <td align="right">0</td>
 <td align="right">2</td>
-<td align="right">18</td>
+<td align="right">21</td>
 <td align="left">Canada</td>
 <td align="left">S52</td>
 </tr>
 <tr class="even">
 <td align="right">2024</td>
 <td align="left">8</td>
-<td align="right">2</td>
+<td align="right">3</td>
 <td align="right">0</td>
 <td align="right">2</td>
 <td align="right">2</td>
 <td align="right">1</td>
-<td align="right">0</td>
+<td align="right">1</td>
 <td align="right">5</td>
-<td align="right">12</td>
+<td align="right">14</td>
 <td align="left">Canada</td>
 <td align="left">S52</td>
 </tr>
@@ -539,23 +568,23 @@ N</h2>
 <td align="right">2</td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="right">0</td>
+<td align="right">1</td>
 <td align="right">3</td>
-<td align="right">9</td>
+<td align="right">10</td>
 <td align="left">Canada</td>
 <td align="left">S52</td>
 </tr>
 <tr class="even">
 <td align="right">2024</td>
 <td align="left">10</td>
-<td align="right">1</td>
+<td align="right">2</td>
 <td align="right">0</td>
 <td align="right">2</td>
 <td align="right">1</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">3</td>
-<td align="right">7</td>
+<td align="right">8</td>
 <td align="left">Canada</td>
 <td align="left">S52</td>
 </tr>
@@ -576,14 +605,14 @@ N</h2>
 <tr class="even">
 <td align="right">2024</td>
 <td align="left">total</td>
-<td align="right">18</td>
+<td align="right">26</td>
 <td align="right">0</td>
 <td align="right">11</td>
 <td align="right">12</td>
 <td align="right">3</td>
-<td align="right">0</td>
+<td align="right">2</td>
 <td align="right">17</td>
-<td align="right">61</td>
+<td align="right">71</td>
 <td align="left">Canada</td>
 <td align="left">S52</td>
 </tr>

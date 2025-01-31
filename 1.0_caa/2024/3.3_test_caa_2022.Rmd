@@ -67,8 +67,22 @@ if(redo){
     load(caaRsim) 
 }
 
-write.csv(caa.sim,paste0('../../csv/',tail(my.year,1),'/caa202priorlandings.csv'))
+caa.sim %>%  group_by(age) %>% reframe(waa.interpol=interpol(year, waa, "linear",from = 2022,to=max(caa.sim$year), plot=F))
 
+caa.sim.old <- expand.grid(year=2022:max(caa.sim$year),age=unique(caa.sim$age))
+caa.sim.inter <- merge(caa.sim.old,caa.sim,all=TRUE)
+caa.sim.inter <- caa.sim.inter[order(caa.sim.inter$age,caa.sim.inter$year),]
+
+caa.sim.inter$waa.interpol <- ddply(caa.sim.inter ,c('age'),summarise,waa.interpol=interpol(year,waa,"linear",from = 2022,to=max(caa.sim.inter$year),title = age[1])[,c(6)])[,2]
+caa.sim.inter <- caa.sim.inter[order(caa.sim$year,caa.sim$age,decreasing = F),]
+
+write.csv(caa.sim.inter,paste0('../../csv/',tail(my.year,1),'/caa_modified2022_',max(my.year),'.csv'))
+
+caa.inter <- read.csv(paste0('../../csv/',tail(my.year,1),'/caa_interpol.csv'))
+
+caa.sim2<- bind_rows(caa.sim.inter %>%  filter(year != max(my.year)),caa.inter[,c(1:8,10)] %>%  filter(year==max(my.year)))
+
+write.csv(caa.sim2,paste0('../../csv/',tail(my.year,1),'/caa_modified2022_2023.csv'))
 
 ```
 

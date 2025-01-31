@@ -51,14 +51,14 @@ df[which.max(df$mtime),'mtime']
 # CATCH
 Use the landings data compiled and checked in iml-assess/1.0_landings.
 Save it again in this project to ensure a "fixed in time" file and easier access.
-Add landings from S52 license
+
 ```{r catch, message = F,results=F}
 # landings from S52 licenses (preliminary for NL)
 source('../../scripts/1.3_lf_year.R')
 
 load(paste0('../../../01.0_landings/Rdata/',tail(my.year,1),'/catch.Rdata'))
-
-catch <- rbind(catch,catch.sam)
+#remove  landings from S52 license
+catch<- catch %>% filter(source != "S52")
 
 save(catch,file=paste0(dir.rdat,'catch.Rdata'))
 ```
