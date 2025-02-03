@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-01-30" />
+<meta name="date" content="2025-02-03" />
 
 <title>Catch-at-age</title>
 
@@ -401,7 +401,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Catch-at-age</h1>
-<h4 class="date">2025-01-30</h4>
+<h4 class="date">2025-02-03</h4>
 
 </div>
 
@@ -454,7 +454,7 @@ if(!file.exists(lw.modR)){
 # Creation time
 df &lt;- file.info(list.files(dir.rdat, full.names = T,pattern=&quot;lw&quot;))
 df[which.max(df$mtime),&#39;mtime&#39;]
-## [1] &quot;2025-01-30 13:41:49 EST&quot;</code></pre>
+## [1] &quot;2025-02-03 11:16:35 EST&quot;</code></pre>
 <div id="check" class="section level2 tabset" number="2.1">
 <h2 class="tabset"><span class="header-section-number">2.1</span>
 CHECK</h2>
@@ -549,7 +549,7 @@ if(!file.exists(lf.caaR)){
 # Creation time
 df &lt;- file.info(list.files(dir.rdat, full.names = T,pattern=&quot;lf&quot;))
 df[which.max(df$mtime),&#39;mtime&#39;]
-## [1] &quot;2025-01-30 13:41:52 EST&quot;</code></pre>
+## [1] &quot;2025-02-03 11:16:38 EST&quot;</code></pre>
 </div>
 <div id="check-1" class="section level2 tabset" number="3.3">
 <h2 class="tabset"><span class="header-section-number">3.3</span>
@@ -4354,7 +4354,7 @@ catch.caa$period &lt;- ceiling(catch.caa$month/3)
 table(catch.caa$month,useNA = &#39;always&#39;)
 ## 
 ##     1     2     3     4     5     6     7     8     9    10    11    12  &lt;NA&gt; 
-##  1278   815   822  1966 12235 51779 26051 63843 66533 30866  7642   780     8
+##  1278   815   822  1966 12237 51781 26053 63845 66533 30866  7642   780     8
 catch.caa$month &lt;- NA
 
 # 2) REGION: large scale regions 
@@ -4364,7 +4364,7 @@ table(catch.caa$gear,useNA = &#39;always&#39;)
 ##   FIX   FPN   FWR    GN   GND   GNS   LHM   LHP   LLS   MIS    NK   OTB OTB-1 OTB-2  OTB*   OTM OTM-1 OTM-2  OTM*    PS    SB   SDN   SPR 
 ##     8 13595   607 52138  2123 53235 13880 97622  1394  1116   133  8762    59   378    57    24     8   114    22  1065  4830 11305     4 
 ##   SSC  &lt;NA&gt; 
-##     2  2137
+##     2  2145
 catch.caa$nafo &lt;-NULL
 
 # 3) GEAR: similar selectivity gears
@@ -4372,7 +4372,7 @@ catch.caa$gear &lt;- group.gear[match(catch.caa$gear.cat,group.gear$gear.cat),&#
 table(catch.caa$gear,useNA = &#39;always&#39;)
 ## 
 ##                Gillnets                   Lines                    Misc Seines_Nets_Traps_Weirs                    &lt;NA&gt; 
-##                  107496                  112896                   10043                   31406                    2777
+##                  107496                  112896                   10043                   31406                    2785
 
 ## total catch by level
 catch.caa &lt;- ddply(catch.caa,c(&#39;year&#39;,&#39;region&#39;,&#39;period&#39;,&#39;gear&#39;),summarise,catch=sum(catch,na.rm = T))
