@@ -1,11 +1,10 @@
 ---
-title: "Mackerel landings"
+title: "Mackerel CAA"
 output:
     html_document:
         toc: true
 ---
 
-Everything related to mackerel landings records (totals, quality checks and various tables)
-
+Everything related to mackerel CAA
 
 
