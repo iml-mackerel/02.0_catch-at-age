@@ -14,7 +14,7 @@ output:
 # SET-UP
 ```{r  markdown, echo=F}
 library(knitr)
-opts_chunk$set(echo = T, collapse = T, fig.align = "center", fig.width = 9, fig.height = 6)
+opts_chunk$set(echo = T, collapse = T, fig.align = "center", fig.width = 9, fig.height = 6, error=T)# error =T retruns error where fails
 options(width = 140)
 ```    
 
@@ -43,8 +43,11 @@ if(redo){
     years <- 2017:2021
     
     catch.sim <- ddply(catch.caa[catch.caa$year %in% years,],c('region','period','gear'),summarise,catch=mean(catch)) # average proportions of last years
-    catch.sim$catch <- catch.sim$catch/sum(catch.sim$catch)*sum(catch.caa[catch.caa$year==2022,'catch'])  # rescale to 2022 total catch
-    catch.sim<- expand_grid(catch.sim, year=2022:max(my.year))
+    
+    catch.sim<- expand_grid(catch.caa %>%  filter(year >=2022) %>%  group_by(year) %>%  summarize(catchy=sum(catch)),
+                 catch.sim) %>%  group_by(year) %>%  mutate(catch = catch / sum(catch) * catchy) %>%  dplyr::select(-catchy)
+    
+    
     
        # re-estimate
     catch.diffused.sim <- get.samples(catch=catch.sim,
@@ -110,7 +113,7 @@ plotCaan(caa.sim)
 
 ## Compare
 ```{r plot 1}
-caa.default <- caa[caa$year%in%c(2021,2022),]
+caa.default <- caa[caa$year%in%2021:2024,]
 caa.default$run <-'default'
 caa.sim$run  <-'prior.landings'
 
@@ -182,22 +185,22 @@ ggplot(caa.reg,aes(x=as.factor(age),y=caan.prop,fill=region))+
     geom_bar(stat='identity',position='dodge')+
     labs(y='Proportion',x='Age',fill='Region')+
     scale_y_continuous(expand=c(0,0))+
-    scale_fill_viridis_d()
+    scale_fill_viridis_d() +facet_wrap(~year)
 
 ```
 
 ## length
 See length dist of samples. ribbon is 50% of samples
 ```{r plot 3}
-len <- ddply(lf.caa[lf.caa$year==2022,],c('year','region','gear','period','sample.id'),transform,prop=n/sum(n)) 
-lens <- ddply(len,c('region','length'),summarise,m=median(prop),low=quantile(prop,0.25),high=quantile(prop,0.75))
+len <- ddply(lf.caa[lf.caa$year %in% 2022,] ,c('year','region','gear','period','sample.id') ,transform,prop=n/sum(n)) 
+lens <- ddply(len,c('region','length','year'),summarise,m=median(prop),low=quantile(prop,0.25),high=quantile(prop,0.75))
 
 ggplot(lens,aes(x=length))+
     geom_ribbon(aes(ymin=low,ymax=high),alpha=0.2)+
     geom_line(aes(y=m))+
     scale_y_continuous(expand=c(0,0))+
-    facet_wrap(~region,scale='free_y',ncol=1)+
-    labs(y='Proportion',y='Length (mm)',fill='Region',col='Region')
+    facet_grid(year~region,scale='free_y',ncol=1)+
+    labs(y='Proportion',y='Length (mm)',fill='Region',col='Region') 
 
 ```
 

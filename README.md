@@ -5,6 +5,5 @@ Makes use of the catchR + DFOdata package to
  * Estimate catch-at-age and the corresponding weight-at-age in the catch
 
 The rmarkdown site can be previewed at (note that this is slow):
-https://htmlpreview.github.io/?https://github.com/iml-mackerel/02.0_catch-at-age/blob/main/docs/1.0_read.html
-
+https://htmlpreview.github.io/?https://github.com/iml-mackerel/02.0_catch-at-age/blob/main/1.0_caa/2024/docs/index.html
 
