@@ -1,0 +1,211 @@
+---
+title: "Read"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: FALSE
+    code_folding: show
+    number_sections: TRUE
+---
+
+# SET-UP
+
+```{r markdown, echo=F}
+library(knitr)
+opts_chunk$set(echo = T, collapse = T, fig.align = "center", fig.width = 8, fig.height = 5)
+options(width = 140)
+```    
+
+```{r settings, message = F}
+source('0.0_settings.R')
+```
+
+# Validation
+
+```{r read.age, message=FALSE}
+ot <- read_excel("S:/Pélagiques/Maquereau/Otolithes_lectures d'âge/Otholite de référence_lectures.xlsx", sheet="Lectures_MB")
+
+group.gear<- read.delim("../../data/caa_group_gear.txt") %>%  dplyr::rename(gear_name=gear.cat)
+group.region<- read.delim("../../data/caa_group_region.txt")
+
+
+
+val<- ot %>%  pivot_longer(`2022`:`2026`) %>%  
+    mutate(value = if_else(value >10, 10, value),
+           age_f=if_else(age_f >10, 10, age_f),
+           valid= if_else(age_f == value, "1", "0"),
+           diff= value-age_f) %>%  filter(!is.na(age_f)) %>%  
+    mutate(nafo=substring(subdivision, 1,2)) # criterias to filter
+
+
+val<- list(val, group.gear, group.region) %>%  purrr::reduce(left_join)
+```
+
+## All fish
+
+Same 143 fish otolithes read every year before analysis
+Red circles show the age in the database
+
+```{r valid.age, message=FALSE}
+
+val %>% mutate(id=paste(sample_id, Fish, sep="_")) %>% 
+    mutate(value = if_else(value >10, 10, value)) %>%  ggplot(aes(x = value , y = id)) +
+    geom_point(aes(x=age_f, y=id), col="red") +geom_boxplot() + scale_x_continuous(name="Age", breaks=seq(0,10,1)) +
+    theme(axis.text.y = element_blank()) +ylab("Fish") + ggtitle("Range of age reading")
+
+conc<- val %>%
+  dplyr::group_by(name) %>% filter(!is.na(age_f), !is.na(value)) %>% 
+  dplyr::summarise(
+    n = dplyr::n(),
+    `% conc.`= mean(valid == "1", na.rm=T) * 100,
+    mean_age_diff=round(mean(diff, na.rm=T),2),
+    .groups = "drop"
+  )
+kable(conc)
+
+
+
+val %>% ggplot(aes(x = name, fill = valid)) +
+  geom_bar(stat = "count", position = "fill") +
+  scale_fill_manual(name = "Age validation", values = c("red", "black")) +
+  ylab("% Fish") +
+  xlab("Year of age reading") +
+  geom_label(
+    stat = "count",
+    aes(label = after_stat(count)),
+    position = position_fill(vjust = 0.5),
+    color = "white",
+    size = 4,
+    fontface="bold"
+    
+  )
+
+
+val %>% ggplot(aes(x = diff, fill = name)) +
+  geom_histogram(position="dodge", binwidth=0.5) +
+  scale_fill_viridis_d(name = "Year of age reading") +
+  xlab("Age difference between readings") 
+
+```
+
+## By group {.tabset}
+
+black good, red bad!!!
+
+### By region
+```{r valid.age2, message=FALSE}
+
+
+val %>% ggplot(aes(x = name, fill = valid)) +
+  geom_bar(stat = "count", position = "fill") +
+  scale_fill_manual(name = "Age validation", values = c("red", "black")) +
+  ylab("% Fish") +
+  xlab("Year of age reading") +
+  facet_wrap(~region) +
+  ggtitle("By region") +
+  geom_label(
+    stat = "count",
+    aes(label = after_stat(count)),
+    position = position_fill(vjust = 0.5),
+    color = "white",
+    size = 4,
+    fontface="bold"
+  )
+
+val %>% ggplot(aes(x = diff, fill = name)) +
+  geom_histogram(position="dodge", binwidth=0.5) +
+  scale_fill_viridis_d(name = "Year of age reading") +
+  xlab("Age difference between readings") +
+  facet_wrap(~region) +
+  ggtitle("By region")
+
+```
+
+### By month
+```{r valid.age3, message=FALSE}
+val %>% ggplot(aes(x = name, fill = valid)) +
+  geom_bar(stat = "count", position = "fill") +
+  scale_fill_manual(name = "Age validation", values = c("red", "black")) +
+  ylab("% Fish") +
+  xlab("Year of age reading") +
+  facet_wrap(~month) +
+  ggtitle("By month") +
+  geom_label(
+    stat = "count",
+    aes(label = after_stat(count)),
+    position = position_fill(vjust = 0.5),
+    color = "white",
+    size = 4,
+    fontface="bold"
+  )
+
+val %>% ggplot(aes(x = diff, fill = name)) +
+  geom_histogram(position="dodge", binwidth=0.5) +
+  scale_fill_viridis_d(name = "Year of age reading") +
+  xlab("Age difference between readings") +
+  facet_wrap(~month) +
+  ggtitle("By month") 
+
+```
+
+
+### By gear
+```{r valid.age4, message=FALSE}
+val %>% ggplot(aes(x = name, fill = valid)) +
+  geom_bar(stat = "count", position = "fill") +
+  scale_fill_manual(name = "Age validation", values = c("red", "black")) +
+  ylab("% Fish") +
+  xlab("Year of age reading") +
+  facet_wrap(~gear.group) +
+  ggtitle("By gear") +
+  geom_label(
+    stat = "count",
+    aes(label = after_stat(count)),
+    position = position_fill(vjust = 0.5),
+    color = "white",
+    size = 4,
+    fontface="bold"
+  )
+
+val %>% ggplot(aes(x = diff, fill = name)) +
+  geom_histogram(position="dodge", binwidth=0.5) +
+  scale_fill_viridis_d(name = "Year of age reading") +
+  xlab("Age difference between readings") +
+  facet_wrap(~gear.group) +
+  ggtitle("By gear")
+
+```
+
+
+### By age : MOST IMPORTANT FACTOR
+```{r valid.age5, message=FALSE}
+val %>% ggplot(aes(x = name, fill = valid)) +
+  geom_bar(stat = "count", position = "fill") +
+  scale_fill_manual(name = "Age validation", values = c("red", "black")) +
+  ylab("% Fish") +
+  xlab("Year of age reading") +
+  facet_wrap(~age_f) +
+  ggtitle("By Age") +
+  geom_label(
+    stat = "count",
+    aes(label = after_stat(count)),
+    position = position_fill(vjust = 0.5),
+    color = "white",
+    size = 4,
+    fontface="bold"
+  )
+val %>% ggplot(aes(x = diff, fill = name)) +
+  geom_histogram(position="dodge", binwidth=0.5) +
+  scale_fill_viridis_d(name = "Year of age reading") +
+  xlab("Age difference between readings") +
+  facet_wrap(~age_f) +
+  ggtitle("By Age")
+
+```
+
+
+
+

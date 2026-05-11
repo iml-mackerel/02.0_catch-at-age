@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2026-04-29" />
+
+<title>Catch-at-age: assessment plots</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Mackerel CAA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="0.0_settings.html">
+    <span class="fa fa-cogs"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="0.5_age_validation.html">Age reading - Validation</a>
+</li>
+<li>
+  <a href="1.0_read.html">Data</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    CAA
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="2.0_caa.html">Calculation</a>
+    </li>
+    <li>
+      <a href="2.2_caa_assessment.html">Assessment</a>
+    </li>
+    <li>
+      <a href="2.3_caa_region.html">Regional</a>
+    </li>
+    <li>
+      <a href="2.4_caa_gear.html">Gear</a>
+    </li>
+    <li>
+      <a href="2.5_caa_period.html">Period</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    S52 licence
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="3.4_S52_LF_supptable.html">S52 licence - Length frequency</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Catch-at-age: assessment plots</h1>
+<h4 class="date">2026-04-29</h4>
+
+</div>
+
+
+<div id="set-up" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> SET-UP</h1>
+<div id="settings" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> settings</h2>
+<pre class="r"><code>source(&#39;0.0_settings.R&#39;)</code></pre>
+</div>
+<div id="load-all-data" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> load all data</h2>
+<pre class="r"><code>load(paste0(dir.rdat, &quot;caa.Rdata&quot;))
+load(paste0(dir.rdat, &quot;catch.caa.Rdata&quot;))
+load(paste0(dir.rdat, &quot;lf.caa.Rdata&quot;))
+load(paste0(dir.rdat, &quot;bio.caa.Rdata&quot;))</code></pre>
+</div>
+</div>
+<div id="input-data-plot" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Input data plot</h1>
+<pre class="r"><code>bio.caa$id &lt;- with(bio.caa,paste(sample.id,year,period,region,gear),collapse=&#39;.&#39;)
+bio.in &lt;- ddply(bio.caa,c(&#39;year&#39;,&#39;period&#39;,&#39;region&#39;,&#39;gear&#39;),summarise,n=length(id),N=length(unique(id)))
+bio.in$input &lt;- &#39;bio&#39;
+
+lf.caa$id &lt;- with(lf.caa,paste(sample.id,year,period,region,gear),collapse=&#39;.&#39;)
+lf.in &lt;- ddply(lf.caa,c(&#39;year&#39;,&#39;period&#39;,&#39;region&#39;,&#39;gear&#39;),summarise,n=length(id),N=length(unique(id)))
+lf.in$input &lt;- &#39;lf&#39;
+
+names(catch.caa)[5] &lt;- &#39;N&#39;
+catch.caa$input &lt;- &#39;catch&#39;
+
+cols &lt;- c(&quot;year&quot;,&quot;period&quot;,&quot;region&quot;,&quot;gear&quot;,&quot;N&quot;,&quot;input&quot;)
+all &lt;- rbind(catch.caa[,cols],lf.in[,cols],bio.in[,cols])
+all$input &lt;- factor(all$input,levels=c(&quot;catch&quot;,&quot;lf&quot;,&quot;bio&quot;))
+
+
+fnames &lt;- as_labeller(c(`catch` = &quot;Débarquement / Landings (t)&quot;, `lf` = &quot;Échantillons de fréquence de longueur (nombre) / Length-frequency samples (number)&quot;,`bio` = &quot;Biologique (nombre de poissons) / Biological (number of fish)&quot;))
+
+p1 &lt;- ggplot(all,aes(x=year,y=N,fill=gear))+
+    geom_bar(stat=&#39;identity&#39;)+
+    facet_wrap(input~.,scale=&#39;free_y&#39;,ncol=1,labeller = fnames)+
+    scale_y_continuous(expand = c(0,0))+
+    scale_x_continuous(expand = c(0,0), limits=c(1975,tail(my.year,1)+1))+
+    scale_fill_viridis_d(na.value = &quot;grey50&quot;)+
+    theme(legend.position = &#39;top&#39;)+
+    labs(x=&#39;Année/Year&#39;,y=&#39;&#39;,fill=&#39;Enging / Gear&#39;)
+ggsave(paste0(&quot;../../img/&quot;, tail(my.year,1),&quot;/Samples_gear.png&quot;), width=8, height=6, dpi=600, units=&quot;in&quot;)
+## Warning: Removed 411 rows containing missing values or values outside the scale range (`geom_bar()`).
+
+p2 &lt;- ggplot(all,aes(x=year,y=N,fill=as.factor(period)))+
+    geom_bar(stat=&#39;identity&#39;)+
+    facet_wrap(input~.,scale=&#39;free_y&#39;,ncol=1,labeller = fnames)+
+    scale_y_continuous(expand = c(0,0))+
+    scale_x_continuous(expand = c(0,0), limits=c(1975,tail(my.year,1)+1))+
+    scale_fill_viridis_d(na.value = &quot;grey50&quot;)+
+    theme(legend.position = &#39;top&#39;)+
+    labs(x=&#39;Année/Year&#39;,y=&#39;&#39;,fill=&#39;Période / Period&#39;)
+ggsave(paste0(&quot;../../img/&quot;, tail(my.year,1),&quot;/Samples_period.png&quot;), width=8, height=6, dpi=600, units=&quot;in&quot;)
+## Warning: Removed 411 rows containing missing values or values outside the scale range (`geom_bar()`).
+
+p3 &lt;- ggplot(all,aes(x=year,y=N,fill=region))+
+    geom_bar(stat=&#39;identity&#39;)+
+    facet_wrap(input~.,scale=&#39;free_y&#39;,ncol=1,labeller = fnames)+
+    scale_y_continuous(expand = c(0,0))+
+    scale_x_continuous(expand = c(0,0), limits=c(1975,tail(my.year,1)+1))+
+    scale_fill_viridis_d(na.value = &quot;grey50&quot;)+
+    theme(legend.position = &#39;top&#39;)+
+    labs(x=&#39;Année/Year&#39;,y=&#39;&#39;,fill=&#39;Région / Region&#39;)
+ggsave(paste0(&quot;../../img/&quot;, tail(my.year,1),&quot;/Samples_region.png&quot;), width=8, height=6, dpi=600, units=&quot;in&quot;)
+## Warning: Removed 411 rows containing missing values or values outside the scale range (`geom_bar()`).
+
+grid.arrange(p1,p2,p3,ncol=3)
+## Warning: Removed 411 rows containing missing values or values outside the scale range (`geom_bar()`).
+## Removed 411 rows containing missing values or values outside the scale range (`geom_bar()`).
+## Removed 411 rows containing missing values or values outside the scale range (`geom_bar()`).</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/plot_input-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+
+
+sample_export &lt;- rbind(lf.in[,cols],bio.in[,cols])
+sample_export$input &lt;- factor(sample_export$input,levels=c(&quot;lf&quot;,&quot;bio&quot;))
+fnamesexport &lt;- as_labeller(c(`lf` = &quot;Length-frequency samples (number)&quot;,`bio` = &quot;Biological (number)&quot;))
+p3ex &lt;- ggplot(sample_export,aes(x=year,y=N,fill=region))+
+    geom_bar(stat=&#39;identity&#39;)+
+    facet_wrap(input~.,scale=&#39;free_y&#39;,ncol=1,labeller = fnames)+
+    scale_y_continuous(expand = c(0,0))+
+    scale_x_continuous(expand = c(0,0), limits=c(1975,tail(my.year,1)+1))+
+    scale_fill_viridis_d(na.value = &quot;grey50&quot;)+
+    theme(legend.position = &#39;right&#39;)+
+    labs(x=&#39;&#39;,y=&#39;&#39;,fill=&#39;Region&#39;)
+ggsave(paste0(&quot;../../img/&quot;, tail(my.year,1),&quot;/Samples_EN.png&quot;), width=8, height=4, dpi=600, units=&quot;in&quot;)
+## Warning: Removed 35 rows containing missing values or values outside the scale range (`geom_bar()`).</code></pre>
+</div>
+<div id="caa-plots" class="section level1 tabset" number="3">
+<h1 class="tabset"><span class="header-section-number">3</span> CAA
+plots</h1>
+<div id="raw" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> RAW</h2>
+<pre class="r"><code>caa$zero &lt;- caa$caan==0
+ggplot(caa,aes(x=year,y=age))+
+  geom_point(alpha=0.8,aes(size=caan,col=zero))+ 
+  scale_size(range = c(1,12))+
+  scale_y_continuous(breaks=min(caa$age):max(caa$age))+
+  scale_color_manual(values=c(&#39;black&#39;,&#39;grey&#39;))+
+  labs(x=&#39;Year&#39;,y=&#39;Age&#39;,size=&#39;Numbers&#39;,col=&#39;Zero&#39;)</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/caan_raw-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="spay" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> SPAY</h2>
+<pre class="r"><code>d &lt;- reshape2::dcast(caa,age~year,value.var = &#39;caan&#39;)
+if(length(unique(d$year)) &gt;1){
+d &lt;- cbind(age=d[,1],spay(d[,-1]))
+d &lt;- reshape2::melt(d,id.vars=&#39;age&#39;,variable.name=&#39;year&#39;,value.name=&#39;caan&#39;)
+d$year &lt;- as.numeric(as.character(d$year))
+ggplot(d,aes(x=year,y=age))+
+  geom_point(alpha=0.8,aes(size=caan))+ 
+  scale_size(range = c(1,12))+
+  scale_y_continuous(breaks=min(caa$age):max(caa$age))
+}</code></pre>
+</div>
+<div id="spay-prop" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> SPAY: prop</h2>
+<pre class="r"><code>d &lt;- ddply(caa,c(&#39;year&#39;),transform,caan.prop=caan/sum(caan))
+CAA&lt;- ggplot(d,aes(x=year,y=age))+
+  geom_point(alpha=0.8,aes(size=caan.prop,col=zero))+ 
+  scale_size(name=&quot;&quot;,range = c(1,12))+
+  scale_y_continuous(breaks=min(caa$age):max(caa$age))+
+  scale_color_manual(values=c(&#39;black&#39;,&#39;grey&#39;), guide=F)
+
+
+CAA +  labs(x=&#39;Year&#39;,y=&#39;Age&#39;,size=&#39;Proportion&#39;,col=&#39;Zero&#39;)
+## Warning: The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
+## ℹ Please use &quot;none&quot; instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/caan_prop-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(paste0(&quot;../../img/&quot;,tail(my.year,1),&quot;/CAA_EN.png&quot;), width=8, height=4, dpi=600, units=&quot;in&quot;)
+
+CAA +  labs(x=&#39;Année&#39;,y=&#39;Âge&#39;,size=&#39;Proportion&#39;,col=&#39;Zero&#39;)</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/caan_prop-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(paste0(&quot;../../img/&quot;,tail(my.year,1),&quot;/CAA_FR.png&quot;), width=8, height=4, dpi=600, units=&quot;in&quot;)
+
+CAA +  labs(x=&#39;Année | Year&#39;,y=&#39;Âge | Age&#39;,size=&#39;Proportion&#39;,col=&#39;Zero&#39;)</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/caan_prop-3.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(paste0(&quot;../../img/&quot;,tail(my.year,1),&quot;/CAA_BI.png&quot;), width=8, height=4, dpi=600, units=&quot;in&quot;)
+</code></pre>
+</div>
+<div id="spya" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> SPYA</h2>
+<pre class="r"><code>d &lt;- reshape2::dcast(caa,age~year,value.var = &#39;caan&#39;)
+d &lt;- cbind(age=d[,1],spya(d[,-1]))
+d &lt;- reshape2::melt(d,id.vars=&#39;age&#39;,variable.name=&#39;year&#39;,value.name=&#39;caan&#39;)
+d$year &lt;- as.numeric(as.character(d$year))
+ggplot(d,aes(x=year,y=age))+
+  geom_point(alpha=0.8,aes(size=caan))+ 
+  scale_size(range = c(1,12))+
+  scale_y_continuous(breaks=min(caa$age):max(caa$age))</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/caan_spya-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="spya-prop" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> SPYA: prop</h2>
+<pre class="r"><code>d &lt;- ddply(caa,c(&#39;age&#39;),transform,caan.prop=caan/sum(caan))
+ggplot(d,aes(x=year,y=age))+
+  geom_point(alpha=0.8,aes(size=caan.prop))+ 
+  scale_size(range = c(1,12))+
+  scale_y_continuous(breaks=min(caa$age):max(caa$age))</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/caan_spay_prop-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="waa" class="section level1 tabset" number="4">
+<h1 class="tabset"><span class="header-section-number">4</span> WAA</h1>
+<div id="linear-interpol" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> linear interpol</h2>
+<pre class="r"><code>caa.old &lt;- expand.grid(year=1968:max(caa$year),age=unique(caa$age))
+caa.inter &lt;- merge(caa.old,caa,all=TRUE)
+caa.inter &lt;- caa.inter[order(caa.inter$age,caa.inter$year),]
+par(mfrow=c(5,2))
+caa.inter$waa.interpol &lt;- ddply(caa.inter,c(&#39;age&#39;),summarise,waa.interpol=interpol(year,waa,&quot;linear&quot;,from = 1968,to=max(caa.inter$year),title = age[1])[,6])[,2]
+## Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in dplyr 1.1.0.
+## ℹ Please use `reframe()` instead.
+## ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()` always returns an ungrouped data frame and adjust
+##   accordingly.
+## ℹ The deprecated feature was likely used in the plyr package.
+##   Please report the issue at &lt;https://github.com/hadley/plyr/issues&gt;.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa%20interpol-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>caa.inter &lt;- caa.inter[order(caa.inter$year,caa.inter$age,decreasing = F),]
+
+write.csv(caa.inter,paste0(&#39;../../csv/&#39;,tail(my.year,1),&#39;/caa_interpol.csv&#39;),row.names = FALSE)</code></pre>
+</div>
+<div id="plot" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Plot</h2>
+<pre class="r"><code>p &lt;- ggplot(caa.inter,aes(x=year,y=waa.interpol,col=as.factor(age)))+
+    geom_line()+
+    scale_color_viridis_d()+
+    scale_x_continuous(expand=c(0,0))+
+    labs(y=&#39;Poids des captures | Catch weight (kg)&#39;,x=&#39;Année | Year&#39;)+
+    theme(legend.position = &#39;none&#39;)
+p</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa%20interpolplot-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+p &lt;- p+labs(y=&#39;Poids dans le captures (kg)&#39;,x=&#39;Année&#39;)
+ggsave(paste0(&#39;waac_FR.png&#39;),p,&#39;png&#39;,paste0(&#39;../../img/&#39;, tail(my.year,1)),width = 15,height = 8,units = &#39;cm&#39;)
+</code></pre>
+<p>Try model smoothing. Not used because if changes to WAA, waa*caa does
+not equal total catch anymore. # Model predictions</p>
+<pre class="r"><code>caa$waa.cv &lt;- 0.01 # need to calculate this!! this is absurdly small value so all predictions will match observed
+caa[caa$caaw==0,&#39;caaw&#39;] &lt;- NA # should be correct in get.caa function
+waa.fit &lt;- with(caa, armatrix.fit(year=caa$year,age=caa$age,x=caa$waa,cv=caa$waa.cv))
+## Optimizing tape... Done
+## Matching hessian patterns... Done
+## outer mgc:  330.2063 
+## outer mgc:  330.2063 
+##   0:    -291.58818: -1.79059 -1.22512 -0.925219 -0.753394 -0.611436 -0.520467 -0.437120 -0.399489 -0.312561 -0.269289 -2.30259 -2.30259 -2.30259  0.00000  0.00000  0.00000  0.00000
+## outer mgc:  78.64903 
+## outer mgc:  33.18884 
+## outer mgc:  31.82623 
+## outer mgc:  31.71997 
+## outer mgc:  31.16989 
+## outer mgc:  30.97766 
+## outer mgc:  30.4057 
+## outer mgc:  30.1112 
+## outer mgc:  29.49967 
+## outer mgc:  29.11648 
+##  10:    -359.83700: -1.78876 -1.22827 -0.923169 -0.762306 -0.611350 -0.532728 -0.443612 -0.413398 -0.326934 -0.281760 -2.44398 -2.51993 -2.06577 0.0260512 0.0517309 -0.0831481 -0.339266
+## outer mgc:  28.46326 
+## outer mgc:  27.98089 
+## outer mgc:  27.76746 
+## outer mgc:  26.95818 
+## outer mgc:  31.4473 
+## outer mgc:  30.3887 
+## outer mgc:  27.26728 
+## outer mgc:  26.22596 
+## outer mgc:  37.00809 
+## outer mgc:  32.2536 
+##  20:    -371.62026: -1.79779 -1.22070 -0.931432 -0.766350 -0.611298 -0.532867 -0.454314 -0.405989 -0.335175 -0.282957 -2.56609 -2.66871 -2.11951 0.0523616 0.0988408 -0.126133 -0.604945
+## outer mgc:  33.59497 
+## outer mgc:  39.32235 
+## outer mgc:  25.09673 
+## outer mgc:  44.05165 
+## outer mgc:  41.14442 
+## outer mgc:  54.76406 
+## outer mgc:  19.12297 
+## outer mgc:  44.3235 
+## outer mgc:  26.75976 
+## outer mgc:  18.12696 
+##  30:    -379.69089: -1.79269 -1.23109 -0.930160 -0.760504 -0.622596 -0.531421 -0.450615 -0.414048 -0.333718 -0.285437 -2.66278 -2.75280 -2.16213 0.0811980 0.144347 -0.182525 -0.844218
+## outer mgc:  17.80369 
+## outer mgc:  17.37023 
+## outer mgc:  20.00376 
+## outer mgc:  16.84498 
+## outer mgc:  16.59146 
+## outer mgc:  16.25488 
+## outer mgc:  15.98691 
+## outer mgc:  15.70889 
+## outer mgc:  24.75773 
+## outer mgc:  15.16617 
+##  40:    -382.89424: -1.79316 -1.22904 -0.934541 -0.761973 -0.621156 -0.531153 -0.452156 -0.416171 -0.333135 -0.285509 -2.71192 -2.78852 -2.17962 0.100983 0.174157 -0.217202 -0.978551
+## outer mgc:  20.719 
+## outer mgc:  14.76816 
+## outer mgc:  18.47259 
+## outer mgc:  14.09771 
+## outer mgc:  14.14958 
+## outer mgc:  13.65154 
+## outer mgc:  19.00094 
+## outer mgc:  16.55452 
+## outer mgc:  17.66971 
+## outer mgc:  12.86064 
+##  50:    -385.35161: -1.78939 -1.22501 -0.932666 -0.763746 -0.625230 -0.537627 -0.451038 -0.418705 -0.331847 -0.288603 -2.75307 -2.80639 -2.19762 0.127033 0.212816 -0.258614 -1.11028
+## outer mgc:  12.53152 
+## outer mgc:  20.99234 
+## outer mgc:  11.9525 
+## outer mgc:  18.98194 
+## outer mgc:  12.33553 
+## outer mgc:  11.30984 
+## outer mgc:  16.31325 
+## outer mgc:  11.43484 
+## outer mgc:  12.53755 
+## outer mgc:  13.24973 
+##  60:    -387.51117: -1.79385 -1.23078 -0.933151 -0.760006 -0.625631 -0.534198 -0.453065 -0.418611 -0.333101 -0.289319 -2.78555 -2.80978 -2.21287 0.162555 0.267503 -0.307787 -1.24137
+## outer mgc:  14.72239 
+## outer mgc:  12.17225 
+## outer mgc:  20.6432 
+## outer mgc:  9.69713 
+## outer mgc:  22.84371 
+## outer mgc:  11.40226 
+## outer mgc:  14.89576 
+## outer mgc:  10.55562 
+## outer mgc:  9.116513 
+## outer mgc:  11.09488 
+##  70:    -389.23259: -1.79554 -1.22981 -0.933951 -0.764485 -0.622832 -0.537325 -0.452529 -0.419121 -0.334769 -0.290646 -2.80471 -2.79749 -2.23245 0.212641 0.349700 -0.364071 -1.36382
+## outer mgc:  8.506377 
+## outer mgc:  9.584187 
+## outer mgc:  9.643855 
+## outer mgc:  8.263267 
+## outer mgc:  8.022373 
+## outer mgc:  8.237047 
+## outer mgc:  7.848686 
+## outer mgc:  13.22488 
+## outer mgc:  7.903007 
+## outer mgc:  13.64238 
+##  80:    -390.72745: -1.79515 -1.23208 -0.933038 -0.765460 -0.625380 -0.535179 -0.458172 -0.420399 -0.336622 -0.291972 -2.81660 -2.77816 -2.24406 0.277281 0.460337 -0.421524 -1.47829
+## outer mgc:  7.352546 
+## outer mgc:  9.661882 
+## outer mgc:  7.121464 
+## outer mgc:  12.25175 
+## outer mgc:  6.902339 
+## outer mgc:  11.20015 
+## outer mgc:  30.29678 
+## outer mgc:  27.42583 
+## outer mgc:  30.2513 
+## outer mgc:  18.55335 
+##  90:    -393.28193: -1.79258 -1.23529 -0.942328 -0.770022 -0.629567 -0.543221 -0.459377 -0.421701 -0.340646 -0.298370 -2.81911 -2.70202 -2.26794 0.459121 0.773825 -0.538716 -1.69768
+## outer mgc:  18.14098 
+## outer mgc:  19.68856 
+## outer mgc:  20.77319 
+## outer mgc:  11.65863 
+## outer mgc:  19.34994 
+## outer mgc:  9.758445 
+## outer mgc:  9.145669 
+## outer mgc:  13.86717 
+## outer mgc:  9.919786 
+## outer mgc:  20.05559 
+## 100:    -395.35000: -1.79535 -1.23546 -0.934792 -0.772246 -0.630234 -0.540083 -0.462190 -0.428790 -0.345438 -0.302710 -2.79914 -2.59349 -2.28276 0.717549  1.17957 -0.639114 -1.88573
+## outer mgc:  11.50075 
+## outer mgc:  19.04611 
+## outer mgc:  14.08775 
+## outer mgc:  8.146933 
+## outer mgc:  12.94198 
+## outer mgc:  22.80656 
+## outer mgc:  23.40774 
+## outer mgc:  3.39453 
+## outer mgc:  8.615786 
+## outer mgc:  2.904288 
+## 110:    -396.89407: -1.82017 -1.25918 -0.962777 -0.795147 -0.657241 -0.569644 -0.489002 -0.454490 -0.370861 -0.327207 -2.75078 -2.47825 -2.29811  1.04861  1.54083 -0.712868 -2.12044
+## outer mgc:  38.08259 
+## outer mgc:  30.80832 
+## outer mgc:  13.05714 
+## outer mgc:  6.255154 
+## outer mgc:  9.192495 
+## outer mgc:  3.245119 
+## outer mgc:  3.310008 
+## outer mgc:  1.867018 
+## outer mgc:  1.782419 
+## outer mgc:  21.50127 
+## 120:    -398.14985: -1.81316 -1.25076 -0.953006 -0.785780 -0.648564 -0.562104 -0.479645 -0.440513 -0.361313 -0.318430 -2.61049 -2.30705 -2.30152  1.76956  1.96690 -0.750531 -2.55209
+## outer mgc:  9.890105 
+## outer mgc:  3.708564 
+## outer mgc:  5.422683 
+## outer mgc:  1.067861 
+## outer mgc:  0.9533573 
+## outer mgc:  0.951775 
+## outer mgc:  0.9509418 
+## outer mgc:  7.267247 
+## outer mgc:  7.4299 
+## outer mgc:  11.70386 
+## 130:    -398.64814: -1.82421 -1.26224 -0.965184 -0.794195 -0.654742 -0.567646 -0.485428 -0.447987 -0.362764 -0.324008 -2.40463 -2.39824 -2.30181  2.39916  1.90486 -0.728962 -2.98388
+## outer mgc:  17.6479 
+## outer mgc:  7.595224 
+## outer mgc:  3.931779 
+## outer mgc:  4.87811 
+## outer mgc:  4.521219 
+## outer mgc:  5.814255 
+## outer mgc:  5.323727 
+## outer mgc:  4.303328 
+## outer mgc:  2.49306 
+## outer mgc:  2.408588 
+## 140:    -398.87719: -1.82050 -1.25813 -0.961971 -0.793637 -0.654989 -0.565896 -0.483859 -0.448538 -0.364647 -0.322598 -2.51081 -2.43348 -2.31552  2.09289  1.78608 -0.827462 -3.64601
+## outer mgc:  1.656506 
+## outer mgc:  2.29389 
+## outer mgc:  1.364891 
+## outer mgc:  0.3464413 
+## outer mgc:  0.1815228 
+## outer mgc:  0.06971343 
+## outer mgc:  0.01767684 
+## outer mgc:  0.002458019 
+## outer mgc:  0.001178059 
+## outer mgc:  0.001178059 
+## outer mgc:  4.398771 
+## outer mgc:  4.397773 
+## outer mgc:  5.486788 
+## outer mgc:  5.487789 
+## outer mgc:  5.541653 
+## outer mgc:  5.541553 
+## outer mgc:  5.576164 
+## outer mgc:  5.574112 
+## outer mgc:  5.588605 
+## outer mgc:  5.590091 
+## outer mgc:  5.58346 
+## outer mgc:  5.585128 
+## outer mgc:  5.541486 
+## outer mgc:  5.540591 
+## outer mgc:  5.316363 
+## outer mgc:  5.315047 
+## outer mgc:  4.666286 
+## outer mgc:  4.668642 
+## outer mgc:  3.153076 
+## outer mgc:  3.151613 
+## outer mgc:  0.02185089 
+## outer mgc:  0.02261582 
+## outer mgc:  0.04503568 
+## outer mgc:  0.04498263 
+## outer mgc:  0.78359 
+## outer mgc:  0.785655 
+## outer mgc:  0.009932006 
+## outer mgc:  0.009183776 
+## outer mgc:  0.01583744 
+## outer mgc:  0.0158631 
+## outer mgc:  0.06411034 
+## outer mgc:  0.06327824 
+## outer mgc:  0.001153033 
+## outer mgc:  0.001358328 
+## outer mgc:  1
+waa.fit
+## armatrix model: log likelihood is 398.8884 Convergence OK
+
+caa$waa.cv &lt;- with(caa,waa.sd/waa) # need to calculate this!! this is absurdly small value so all predictions will match observed
+waa.fit &lt;- armatrix.fit(year=caa$year,age=caa$age,x=caa$waa,cv=caa$waa.cv)
+## Warning in armatrix.fit(year = caa$year, age = caa$age, x = caa$waa, cv = caa$waa.cv): cvs equal to 0/NA replaced by value of historic 95%
+## quantile
+## Optimizing tape... Done
+## Matching hessian patterns... Done
+## outer mgc:  78.63435 
+## outer mgc:  78.63435 
+##   0:    -290.29983: -1.79059 -1.22512 -0.925219 -0.753394 -0.611436 -0.520467 -0.437120 -0.399489 -0.312561 -0.269289 -2.30259 -2.30259 -2.30259  0.00000  0.00000  0.00000  0.00000
+## outer mgc:  83.33552 
+## outer mgc:  82.93466 
+## outer mgc:  64.24446 
+## outer mgc:  42.32326 
+## outer mgc:  53.9054 
+## outer mgc:  54.75013 
+## outer mgc:  68.46008 
+## outer mgc:  72.23273 
+## outer mgc:  82.79456 
+## outer mgc:  98.83284 
+##  10:    -343.52024: -1.73869 -1.20935 -0.950078 -0.758639 -0.600605 -0.532832 -0.458734 -0.392873 -0.337097 -0.325200 -2.73011 -2.78087 -3.29445 0.0923605 0.114314 0.124451 0.0736295
+## outer mgc:  34.42594 
+## outer mgc:  29.01277 
+## outer mgc:  11.50673 
+## outer mgc:  24.39501 
+## outer mgc:  13.32807 
+## outer mgc:  23.80232 
+## outer mgc:  9.827602 
+## outer mgc:  16.00272 
+## outer mgc:  18.10527 
+## outer mgc:  24.55107 
+##  20:    -350.36194: -1.75185 -1.20730 -0.931947 -0.756859 -0.621355 -0.526440 -0.448408 -0.431212 -0.318929 -0.304690 -2.83471 -2.87924 -3.43011 0.128974 0.155517 0.143517 0.0842418
+## outer mgc:  19.43307 
+## outer mgc:  12.80385 
+## outer mgc:  7.854131 
+## outer mgc:  11.95052 
+## outer mgc:  10.66316 
+## outer mgc:  15.04187 
+## outer mgc:  8.502299 
+## outer mgc:  16.99447 
+## outer mgc:  6.529579 
+## outer mgc:  8.401647 
+##  30:    -352.78504: -1.75485 -1.20995 -0.924948 -0.755441 -0.620265 -0.526890 -0.452252 -0.422355 -0.320947 -0.308181 -2.92377 -2.95665 -3.55519 0.175278 0.206955 0.162952 0.0954643
+## outer mgc:  7.452073 
+## outer mgc:  8.604449 
+## outer mgc:  8.654802 
+## outer mgc:  11.01609 
+## outer mgc:  8.207682 
+## outer mgc:  10.11554 
+## outer mgc:  7.579488 
+## outer mgc:  7.40156 
+## outer mgc:  6.615637 
+## outer mgc:  9.731389 
+##  40:    -353.88145: -1.75466 -1.20823 -0.924916 -0.757112 -0.620676 -0.527176 -0.448116 -0.424947 -0.325232 -0.304215 -2.97259 -2.99472 -3.63822 0.216115 0.252019 0.177209 0.103756
+## outer mgc:  8.803762 
+## outer mgc:  9.083469 
+## outer mgc:  6.143827 
+## outer mgc:  13.07906 
+## outer mgc:  4.937019 
+## outer mgc:  6.193324 
+## outer mgc:  6.494581 
+## outer mgc:  8.416583 
+## outer mgc:  7.803477 
+## outer mgc:  6.527791 
+##  50:    -354.74292: -1.75608 -1.20931 -0.927056 -0.755056 -0.620518 -0.526972 -0.448821 -0.423162 -0.323842 -0.305521 -3.00557 -3.01455 -3.72110 0.270326 0.311718 0.192990 0.113076
+## outer mgc:  7.960107 
+## outer mgc:  7.661842 
+## outer mgc:  4.704466 
+## outer mgc:  7.849218 
+## outer mgc:  4.209897 
+## outer mgc:  8.916898 
+## outer mgc:  3.716818 
+## outer mgc:  6.360139 
+## outer mgc:  5.139173 
+## outer mgc:  6.09137 
+##  60:    -355.47468: -1.75581 -1.21074 -0.925606 -0.756752 -0.620832 -0.527917 -0.450903 -0.424778 -0.320712 -0.306791 -3.02272 -3.01807 -3.79854 0.340137 0.388068 0.209069 0.122495
+## outer mgc:  5.356584 
+## outer mgc:  7.082546 
+## outer mgc:  4.463148 
+## outer mgc:  4.913996 
+## outer mgc:  19.80748 
+## outer mgc:  12.87873 
+## outer mgc:  22.44099 
+## outer mgc:  35.85398 
+## outer mgc:  15.97034 
+## outer mgc:  4.594243 
+##  70:    -357.60845: -1.75196 -1.20628 -0.926717 -0.757417 -0.622527 -0.527570 -0.450768 -0.426643 -0.324630 -0.308304 -2.98969 -2.94110 -4.00374 0.705180 0.770591 0.259164 0.151161
+## outer mgc:  4.994975 
+## outer mgc:  6.563294 
+## outer mgc:  2.782344 
+## outer mgc:  5.407666 
+## outer mgc:  2.534756 
+## outer mgc:  4.874104 
+## outer mgc:  2.392976 
+## outer mgc:  4.62019 
+## outer mgc:  2.307375 
+## outer mgc:  4.482595 
+##  80:    -357.77855: -1.75614 -1.21221 -0.928424 -0.759372 -0.624174 -0.530182 -0.453295 -0.428495 -0.326982 -0.310713 -2.99838 -2.94764 -4.02087 0.727256 0.792549 0.262559 0.152913
+## outer mgc:  2.250276 
+## outer mgc:  4.392712 
+## outer mgc:  2.206849 
+## outer mgc:  4.32271 
+## outer mgc:  2.169774 
+## outer mgc:  4.262424 
+## outer mgc:  2.136903 
+## outer mgc:  4.208158 
+## outer mgc:  2.11633 
+## outer mgc:  4.158516 
+##  90:    -357.93876: -1.75656 -1.21264 -0.928856 -0.759837 -0.624638 -0.530604 -0.453773 -0.429101 -0.327273 -0.311236 -3.00433 -2.95048 -4.03981 0.754568 0.819363 0.266503 0.154929
+## outer mgc:  2.096004 
+## outer mgc:  4.112886 
+## outer mgc:  2.075925 
+## outer mgc:  4.070916 
+## outer mgc:  2.05609 
+## outer mgc:  4.032343 
+## outer mgc:  2.036498 
+## outer mgc:  3.996939 
+## outer mgc:  2.017145 
+## outer mgc:  3.964493 
+## 100:    -358.09034: -1.75676 -1.21287 -0.929111 -0.760117 -0.624921 -0.530856 -0.454062 -0.429487 -0.327448 -0.311593 -3.00831 -2.95106 -4.05927 0.782754 0.846671 0.270591 0.157004
+## outer mgc:  1.998026 
+## outer mgc:  3.934813 
+## outer mgc:  1.979139 
+## outer mgc:  3.907724 
+## outer mgc:  1.960479 
+## outer mgc:  3.883068 
+## outer mgc:  1.942043 
+## outer mgc:  3.860705 
+## outer mgc:  1.923826 
+## outer mgc:  3.840513 
+## 110:    -358.23478: -1.75698 -1.21312 -0.929390 -0.760417 -0.625225 -0.531133 -0.454370 -0.429872 -0.327672 -0.311974 -3.01067 -2.94997 -4.07906 0.811488 0.874134 0.274769 0.159109
+## outer mgc:  1.905825 
+## outer mgc:  3.822384 
+## outer mgc:  1.888036 
+## outer mgc:  3.806227 
+## outer mgc:  1.870454 
+## outer mgc:  3.791967 
+## outer mgc:  1.853075 
+## outer mgc:  3.779539 
+## outer mgc:  1.835896 
+## outer mgc:  3.768895 
+## 120:    -358.37300: -1.75722 -1.21339 -0.929693 -0.760739 -0.625550 -0.531432 -0.454696 -0.430258 -0.327937 -0.312376 -3.01175 -2.94765 -4.09906 0.840619 0.901577 0.279002 0.161221
+## outer mgc:  1.818912 
+## outer mgc:  3.759998 
+## outer mgc:  1.802119 
+## outer mgc:  3.752821 
+## outer mgc:  1.785511 
+## outer mgc:  3.747352 
+## outer mgc:  1.769085 
+## outer mgc:  3.74359 
+## outer mgc:  1.752836 
+## outer mgc:  3.741543 
+## 130:    -358.50563: -1.75747 -1.21367 -0.930018 -0.761078 -0.625892 -0.531748 -0.455035 -0.430644 -0.328233 -0.312796 -3.01183 -2.94447 -4.11919 0.870064 0.928888 0.283267 0.163328
+## outer mgc:  1.736759 
+## outer mgc:  3.741234 
+## outer mgc:  1.724811 
+## outer mgc:  3.742697 
+## outer mgc:  1.715905 
+## outer mgc:  3.745981 
+## outer mgc:  1.707034 
+## outer mgc:  3.751146 
+## outer mgc:  1.698195 
+## outer mgc:  3.758269 
+## 140:    -358.63309: -1.75774 -1.21398 -0.930363 -0.761434 -0.626249 -0.532078 -0.455383 -0.431027 -0.328556 -0.313228 -3.01114 -2.94075 -4.13942 0.899759 0.955971 0.287551 0.165420
+## outer mgc:  1.689382 
+## outer mgc:  3.767444 
+## outer mgc:  1.680591 
+## outer mgc:  3.778783 
+## outer mgc:  1.671816 
+## outer mgc:  3.792416 
+## outer mgc:  1.663052 
+## outer mgc:  3.8085 
+## outer mgc:  1.654295 
+## outer mgc:  3.827217 
+## 150:    -358.75566: -1.75803 -1.21429 -0.930732 -0.761807 -0.626620 -0.532419 -0.455740 -0.431403 -0.328905 -0.313673 -3.00993 -2.93675 -4.15978 0.929628 0.982721 0.291850 0.167494
+## outer mgc:  1.645538 
+## outer mgc:  3.84878 
+## outer mgc:  1.636775 
+## outer mgc:  3.873436 
+## outer mgc:  1.628002 
+## outer mgc:  3.901474 
+## outer mgc:  1.61921 
+## outer mgc:  3.933232 
+## outer mgc:  1.610395 
+## outer mgc:  3.969103 
+## 160:    -358.87344: -1.75834 -1.21463 -0.931126 -0.762201 -0.627006 -0.532772 -0.456104 -0.431770 -0.329283 -0.314130 -3.00850 -2.93275 -4.18035 0.959537  1.00900 0.296166 0.169554
+## outer mgc:  1.601548 
+## outer mgc:  4.009546 
+## outer mgc:  1.592662 
+## outer mgc:  4.055095 
+## outer mgc:  1.583729 
+## outer mgc:  4.106374 
+## outer mgc:  1.57474 
+## outer mgc:  4.16411 
+## outer mgc:  1.565685 
+## outer mgc:  4.229142 
+## 170:    -358.98621: -1.75869 -1.21499 -0.931554 -0.762623 -0.627412 -0.533136 -0.456482 -0.432124 -0.329704 -0.314599 -3.00726 -2.92913 -4.20129 0.989228  1.03460 0.300511 0.171609
+## outer mgc:  1.556556 
+## outer mgc:  4.302436 
+## outer mgc:  1.547339 
+## outer mgc:  4.385093 
+## outer mgc:  1.538024 
+## outer mgc:  4.419029 
+## outer mgc:  1.528638 
+## outer mgc:  4.358431 
+## outer mgc:  1.519291 
+## outer mgc:  4.370363 
+## 180:    -359.09416: -1.75904 -1.21536 -0.931969 -0.763047 -0.627820 -0.533497 -0.456882 -0.432523 -0.330093 -0.315054 -3.00647 -2.92607 -4.22276  1.01842  1.05932 0.304894 0.173670
+## outer mgc:  1.510021 
+## outer mgc:  4.330127 
+## outer mgc:  1.500821 
+## outer mgc:  4.322223 
+## outer mgc:  1.491717 
+## outer mgc:  4.297985 
+## outer mgc:  1.482679 
+## outer mgc:  4.274723 
+## outer mgc:  1.473739 
+## outer mgc:  4.263769 
+## 190:    -359.19842: -1.75933 -1.21568 -0.932305 -0.763414 -0.628186 -0.533826 -0.457267 -0.432938 -0.330382 -0.315460 -3.00485 -2.92234 -4.24448  1.04784  1.08374 0.309323 0.175734
+## outer mgc:  1.464855 
+## outer mgc:  4.228127 
+## outer mgc:  1.456067 
+## outer mgc:  4.228452 
+## outer mgc:  1.447323 
+## outer mgc:  4.181916 
+## outer mgc:  1.438675 
+## outer mgc:  4.19276 
+## outer mgc:  1.430059 
+## outer mgc:  4.135259 
+## 200:    -359.29884: -1.75961 -1.21601 -0.932671 -0.763793 -0.628560 -0.534164 -0.457654 -0.433354 -0.330677 -0.315869 -3.00230 -2.91793 -4.26630  1.07759  1.10792 0.313779 0.177789
+## outer mgc:  1.421538 
+## outer mgc:  4.157589 
+## outer mgc:  1.413036 
+## outer mgc:  4.087022 
+## outer mgc:  1.404634 
+## outer mgc:  4.124344 
+## outer mgc:  1.396229 
+## outer mgc:  4.035552 
+## outer mgc:  1.38794 
+## outer mgc:  4.095487 
+## 210:    -359.39546: -1.75991 -1.21635 -0.933011 -0.764175 -0.628945 -0.534511 -0.458051 -0.433761 -0.331008 -0.316314 -2.99895 -2.91305 -4.28815  1.10770  1.13186 0.318249 0.179825
+## outer mgc:  1.379615 
+## outer mgc:  3.978215 
+## outer mgc:  1.371434 
+## outer mgc:  4.075733 
+## outer mgc:  1.363168 
+## outer mgc:  3.910669 
+## outer mgc:  1.355102 
+## outer mgc:  4.074865 
+## outer mgc:  1.346863 
+## outer mgc:  3.826043 
+## 220:    -359.48893: -1.76022 -1.21671 -0.933454 -0.764593 -0.629339 -0.534885 -0.458456 -0.434210 -0.331283 -0.316675 -2.99492 -2.90785 -4.30999  1.13819  1.15552 0.322724 0.181837
+## outer mgc:  1.338935 
+## outer mgc:  4.084933 
+## outer mgc:  1.330704 
+## outer mgc:  3.737376 
+## outer mgc:  1.322986 
+## outer mgc:  4.047885 
+## outer mgc:  1.314791 
+## outer mgc:  3.809338 
+## outer mgc:  1.307501 
+## outer mgc:  4.10739 
+## 230:    -359.57834: -1.76052 -1.21705 -0.933472 -0.764848 -0.629722 -0.535241 -0.458922 -0.434645 -0.331733 -0.317346 -2.99004 -2.90222 -4.33165  1.16913  1.17888 0.327185 0.183810
+## outer mgc:  1.299245 
+## outer mgc:  3.885063 
+## outer mgc:  1.292896 
+## outer mgc:  3.989685 
+## outer mgc:  1.284976 
+## outer mgc:  3.242834 
+## outer mgc:  1.27975 
+## outer mgc:  3.308017 
+## outer mgc:  1.27277 
+## outer mgc:  2.92843 
+## 240:    -359.66610: -1.76074 -1.21735 -0.934139 -0.765266 -0.630068 -0.535618 -0.459234 -0.435193 -0.331727 -0.317460 -2.98263 -2.89490 -4.35227  1.20118  1.20203 0.331534 0.185671
+## outer mgc:  15.40419 
+## outer mgc:  17.6062 
+## outer mgc:  14.79937 
+## outer mgc:  14.55495 
+## outer mgc:  4.959877 
+## outer mgc:  8.242894 
+## outer mgc:  1.311992 
+## outer mgc:  5.444842 
+## outer mgc:  1.090573 
+## outer mgc:  3.478366 
+## 250:    -360.53712: -1.76938 -1.22668 -0.943707 -0.774613 -0.639589 -0.545064 -0.468496 -0.445761 -0.338907 -0.327098 -2.79133 -2.75976 -4.57960  1.75579  1.54162 0.386472 0.205083
+## outer mgc:  1.040629 
+## outer mgc:  3.170124 
+## outer mgc:  0.9965477 
+## outer mgc:  2.943807 
+## outer mgc:  0.9547533 
+## outer mgc:  2.673399 
+## outer mgc:  0.9175866 
+## outer mgc:  2.516604 
+## outer mgc:  0.8832037 
+## outer mgc:  2.373072 
+## 260:    -360.58486: -1.76940 -1.22666 -0.943413 -0.774813 -0.639591 -0.544941 -0.468664 -0.445302 -0.339031 -0.327082 -2.79485 -2.76428 -4.58894  1.78336  1.55534 0.388895 0.205718
+## outer mgc:  0.8579953 
+## outer mgc:  2.262894 
+## outer mgc:  0.8482883 
+## outer mgc:  2.169897 
+## outer mgc:  0.8367787 
+## outer mgc:  2.093622 
+## outer mgc:  0.8232789 
+## outer mgc:  2.030107 
+## outer mgc:  0.8083432 
+## outer mgc:  1.97751 
+## 270:    -360.62298: -1.76985 -1.22708 -0.943839 -0.775239 -0.640009 -0.545326 -0.469051 -0.445665 -0.339433 -0.327434 -2.79438 -2.76506 -4.60097  1.81201  1.56883 0.391857 0.206559
+## outer mgc:  0.792163 
+## outer mgc:  1.934077 
+## outer mgc:  0.7749569 
+## outer mgc:  1.898593 
+## outer mgc:  0.7568612 
+## outer mgc:  1.8701 
+## outer mgc:  0.745011 
+## outer mgc:  1.847897 
+## outer mgc:  0.7345601 
+## outer mgc:  1.831473 
+## 280:    -360.65662: -1.77029 -1.22752 -0.944284 -0.775685 -0.640447 -0.545730 -0.469454 -0.446068 -0.339798 -0.327817 -2.79187 -2.76431 -4.61509  1.84021  1.58165 0.395204 0.207561
+## outer mgc:  0.724378 
+## outer mgc:  1.820475 
+## outer mgc:  0.7144364 
+## outer mgc:  1.814692 
+## outer mgc:  0.7047078 
+## outer mgc:  1.814036 
+## outer mgc:  0.6951653 
+## outer mgc:  1.81854 
+## outer mgc:  0.6857816 
+## outer mgc:  1.828354 
+## 290:    -360.68746: -1.77070 -1.22794 -0.944721 -0.776119 -0.640876 -0.546119 -0.469841 -0.446468 -0.340119 -0.328191 -2.78825 -2.76295 -4.63085  1.86777  1.59380 0.398854 0.208684
+## outer mgc:  0.6765292 
+## outer mgc:  1.843754 
+## outer mgc:  0.6673793 
+## outer mgc:  1.865155 
+## outer mgc:  0.6583013 
+## outer mgc:  1.893122 
+## outer mgc:  0.6492617 
+## outer mgc:  1.928403 
+## outer mgc:  0.6402228 
+## outer mgc:  1.971949 
+## 300:    -360.71639: -1.77109 -1.22835 -0.945146 -0.776536 -0.641296 -0.546485 -0.470208 -0.446866 -0.340385 -0.328547 -2.78437 -2.76157 -4.64799  1.89460  1.60532 0.402759 0.209908
+## outer mgc:  0.631141 
+## outer mgc:  2.02494 
+## outer mgc:  0.6219644 
+## outer mgc:  2.0888 
+## outer mgc:  0.6126296 
+## outer mgc:  2.165148 
+## outer mgc:  0.6030581 
+## outer mgc:  2.25564 
+## outer mgc:  0.593151 
+## outer mgc:  2.361498 
+## 310:    -360.74407: -1.77142 -1.22871 -0.945530 -0.776910 -0.641687 -0.546795 -0.470536 -0.447258 -0.340538 -0.328854 -2.78156 -2.76105 -4.66637  1.92035  1.61619 0.406861 0.211227
+## outer mgc:  0.5827855 
+## outer mgc:  2.482428 
+## outer mgc:  0.5718159 
+## outer mgc:  2.614402 
+## outer mgc:  0.5600883 
+## outer mgc:  2.746091 
+## outer mgc:  0.5474913 
+## outer mgc:  2.679454 
+## outer mgc:  0.5346301 
+## outer mgc:  2.616614 
+## 320:    -360.77051: -1.77163 -1.22893 -0.945762 -0.777137 -0.641922 -0.546958 -0.470711 -0.447534 -0.340573 -0.328986 -2.78251 -2.76308 -4.68536  1.94351  1.62601 0.410943 0.212599
+## outer mgc:  0.5221683 
+## outer mgc:  2.57708 
+## outer mgc:  0.5099328 
+## outer mgc:  2.401235 
+## outer mgc:  0.4982795 
+## outer mgc:  2.026224 
+## outer mgc:  0.4919668 
+## outer mgc:  1.610894 
+## outer mgc:  8.017234 
+## outer mgc:  8.514243 
+## 330:    -360.88364: -1.77782 -1.23262 -0.951851 -0.784049 -0.651514 -0.551837 -0.478593 -0.452227 -0.348594 -0.335043 -2.67619 -2.70319 -4.90111  2.18833  1.71742 0.458043 0.228267
+## outer mgc:  2.990139 
+## outer mgc:  1.592602 
+## outer mgc:  2.912812 
+## outer mgc:  1.248232 
+## outer mgc:  1.043678 
+## outer mgc:  1.074969 
+## outer mgc:  0.9723833 
+## outer mgc:  0.9843266 
+## outer mgc:  0.9099841 
+## outer mgc:  0.919726 
+## 340:    -360.93917: -1.77525 -1.23269 -0.949473 -0.780825 -0.645418 -0.550457 -0.474155 -0.450478 -0.344025 -0.332186 -2.67079 -2.71167 -4.92366  2.21526  1.72475 0.463893 0.229713
+## outer mgc:  0.8660616 
+## outer mgc:  0.8761022 
+## outer mgc:  0.834418 
+## outer mgc:  0.844612 
+## outer mgc:  0.8096729 
+## outer mgc:  0.8197399 
+## outer mgc:  0.7887455 
+## outer mgc:  0.7985253 
+## outer mgc:  0.7700136 
+## outer mgc:  0.7794459 
+## 350:    -360.95135: -1.77562 -1.23303 -0.949821 -0.781172 -0.645753 -0.550770 -0.474458 -0.450813 -0.344324 -0.332483 -2.67028 -2.71332 -4.93803  2.23150  1.72895 0.467523 0.230661
+## outer mgc:  0.7526456 
+## outer mgc:  0.7617274 
+## outer mgc:  0.7362138 
+## outer mgc:  0.744972 
+## outer mgc:  0.7204936 
+## outer mgc:  0.7289689 
+## outer mgc:  0.705361 
+## outer mgc:  0.7136001 
+## outer mgc:  0.6907424 
+## outer mgc:  0.6987935 
+## 360:    -360.96202: -1.77591 -1.23331 -0.950102 -0.781450 -0.646023 -0.551024 -0.474708 -0.451064 -0.344547 -0.332719 -2.66930 -2.71457 -4.95369  2.24676  1.73260 0.471394 0.231703
+## outer mgc:  0.6765898 
+## outer mgc:  0.6844999 
+## outer mgc:  0.6628682 
+## outer mgc:  0.6706824 
+## outer mgc:  0.6495501 
+## outer mgc:  0.6573101 
+## outer mgc:  0.6366121 
+## outer mgc:  0.6443563 
+## outer mgc:  0.6240336 
+## outer mgc:  0.6317966 
+## 370:    -360.97160: -1.77619 -1.23358 -0.950372 -0.781717 -0.646282 -0.551269 -0.474949 -0.451305 -0.344761 -0.332948 -2.66802 -2.71557 -4.97043  2.26103  1.73576 0.475475 0.232823
+## outer mgc:  0.611796 
+## outer mgc:  5.108992 
+## outer mgc:  3.78714 
+## outer mgc:  2.862358 
+## outer mgc:  4.624431 
+## outer mgc:  1.957091 
+## outer mgc:  0.9405754 
+## outer mgc:  0.5411295 
+## outer mgc:  3.105452 
+## outer mgc:  2.680045 
+## 380:    -361.08459: -1.77956 -1.23609 -0.953012 -0.784637 -0.649875 -0.554158 -0.477936 -0.454028 -0.346783 -0.334236 -2.61859 -2.71700 -5.64374  2.49224  1.77518 0.656101 0.275817
+## outer mgc:  2.166388 
+## outer mgc:  2.046396 
+## outer mgc:  0.7193032 
+## outer mgc:  0.3329755 
+## outer mgc:  1.408834 
+## outer mgc:  1.140706 
+## outer mgc:  1.410697 
+## outer mgc:  0.6591326 
+## outer mgc:  0.3116899 
+## outer mgc:  0.2305514 
+## 390:    -361.12314: -1.77952 -1.23674 -0.953351 -0.784666 -0.649328 -0.554048 -0.477784 -0.454145 -0.347257 -0.335741 -2.65295 -2.72235 -7.18985  2.38746  1.75527  1.08506 0.375115
+## outer mgc:  0.3583514 
+## outer mgc:  0.3066386 
+## outer mgc:  0.0889154 
+## outer mgc:  0.04994254 
+## outer mgc:  0.03585937 
+## outer mgc:  0.008215156 
+## outer mgc:  0.00579415 
+## outer mgc:  0.004535255 
+## outer mgc:  0.00170158 
+## outer mgc:  0.0008333082 
+## 400:    -361.12430: -1.77930 -1.23654 -0.953326 -0.784662 -0.649160 -0.553999 -0.477681 -0.454070 -0.347227 -0.335615 -2.65368 -2.72292 -10.2803  2.38496  1.75575  1.94132 0.575540
+## outer mgc:  0.0006400647 
+## outer mgc:  0.0003086793 
+## outer mgc:  0.0001698745 
+## outer mgc:  0.0001198415 
+## outer mgc:  6.166166e-05 
+## outer mgc:  6.166166e-05 
+## outer mgc:  0.9073478 
+## outer mgc:  0.9073653 
+## outer mgc:  1.142613 
+## outer mgc:  1.142632 
+## outer mgc:  1.787392 
+## outer mgc:  1.78732 
+## outer mgc:  2.088434 
+## outer mgc:  2.088484 
+## outer mgc:  2.515518 
+## outer mgc:  2.515395 
+## outer mgc:  2.611544 
+## outer mgc:  2.611535 
+## outer mgc:  2.786079 
+## outer mgc:  2.786163 
+## outer mgc:  3.250796 
+## outer mgc:  3.250758 
+## outer mgc:  3.411639 
+## outer mgc:  3.411664 
+## outer mgc:  2.165845 
+## outer mgc:  2.165878 
+## outer mgc:  0.0184555 
+## outer mgc:  0.01849438 
+## outer mgc:  0.02179839 
+## outer mgc:  0.02177118 
+## outer mgc:  6.166164e-05 
+## outer mgc:  6.166168e-05 
+## outer mgc:  0.01082618 
+## outer mgc:  0.01080389 
+## outer mgc:  0.00719746 
+## outer mgc:  0.007200065 
+## outer mgc:  6.166163e-05 
+## outer mgc:  6.166169e-05 
+## outer mgc:  6.16617e-05 
+## outer mgc:  6.166162e-05 
+## outer mgc:  1
+waa.fit
+## armatrix model: log likelihood is 361.1243 Convergence OK</code></pre>
+</div>
+<div id="predicted" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Predicted</h2>
+<pre class="r"><code>armatrix.predobs(waa.fit,scale=&#39;free&#39;,ncol=3)
+## Warning: Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa_predobs-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="predicted-1" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Predicted</h2>
+<pre class="r"><code>armatrix.pred(waa.fit,scale=&#39;free&#39;,ncol=3)</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa_pred-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="resid-bubble" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Resid bubble</h2>
+<pre class="r"><code>armatrix.res(waa.fit)
+## Warning: Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa_res-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="resid-dot" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Resid dot</h2>
+<pre class="r"><code>armatrix.res2(waa.fit)
+## Warning: Removed 21 rows containing non-finite outside the scale range (`stat_smooth()`).
+## Warning: Removed 21 rows containing missing values or values outside the scale range (`geom_text()`).
+## Warning: Removed 21 rows containing non-finite outside the scale range (`stat_smooth()`).
+## Warning: Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).
+## Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).
+## Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa_res2-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="effects" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> effects</h2>
+<pre class="r"><code>armatrix.effects(waa.fit) # empty plot because of ggplotGrob function within (used to align plots)</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa_effects-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cvs" class="section level2" number="4.8">
+<h2><span class="header-section-number">4.8</span> cvs</h2>
+<pre class="r"><code>armatrix.cvs(waa.fit,scale=&#39;free&#39;,ncol=3)
+## Warning: Removed 14 rows containing missing values or values outside the scale range (`geom_line()`).</code></pre>
+<p><img src="2.2_caa_assessment_files/figure-html/waa_cv-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
