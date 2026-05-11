@@ -46,6 +46,8 @@ names(catch.sam)[which(names(catch.sam)=='gear')] <-'gear.cat'
 pc<- catch.sam %>%  ggplot(aes(x=month, y=catch, fill=prov)) +geom_bar(stat="identity") +facet_wrap(~year) +
     scale_fill_viridis_d(name="") 
 pc + labs(x="Mois | Month", y="Captures | Catch (t)")
+pc + labs(x="Month", y="Catch (t)")
+pc + labs(x="Mois", y="Captures (t)")
 
 kable(catch.sam  %>%  group_by(year) %>%  summarize(catchs52=sum(catch, na.rm=T)))
 
