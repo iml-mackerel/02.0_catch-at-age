@@ -415,35 +415,6 @@ cran.packages &lt;- c(&#39;ggplot2&#39;,&#39;gridExtra&#39;,&#39;viridis&#39;,&#
 install.this &lt;- cran.packages[!(cran.packages %in% utils::installed.packages()[,&quot;Package&quot;])]
 if(length(install.this)&gt;1) install.packages(install.this)
 dummy &lt;- lapply(cran.packages, require, character.only = TRUE)
-## Le chargement a nécessité le package : gridExtra
-## 
-## Attachement du package : &#39;gridExtra&#39;
-## L&#39;objet suivant est masqué depuis &#39;package:dplyr&#39;:
-## 
-##     combine
-## Le chargement a nécessité le package : viridis
-## Le chargement a nécessité le package : viridisLite
-## Le chargement a nécessité le package : plyr
-## ----------------------------------------------------------------------------------------------------------------------
-## You have loaded plyr after dplyr - this is likely to cause problems.
-## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
-## library(plyr); library(dplyr)
-## ----------------------------------------------------------------------------------------------------------------------
-## 
-## Attachement du package : &#39;plyr&#39;
-## Les objets suivants sont masqués depuis &#39;package:dplyr&#39;:
-## 
-##     arrange, count, desc, mutate, rename, summarise, summarize
-## L&#39;objet suivant est masqué depuis &#39;package:purrr&#39;:
-## 
-##     compact
-## Le chargement a nécessité le package : reshape2
-## 
-## Attachement du package : &#39;reshape2&#39;
-## L&#39;objet suivant est masqué depuis &#39;package:tidyr&#39;:
-## 
-##     smiths
-## Le chargement a nécessité le package : readxl
 
 ## github
 git.packages &lt;- c(&#39;catchR&#39;,&#39;CCAM&#39;,&#39;DFOdata&#39;)
@@ -452,22 +423,6 @@ if(&#39;catchR&#39; %in% install.this)  devtools::install_github(&quot;iml-asses
 if(&#39;CCAM&#39; %in% install.this)  devtools::install_github(&quot;elisvb/CCAM&quot;)
 if(&#39;DFOdata&#39; %in% install.this)  devtools::install_github(&quot;iml-assess/DFOdata&quot;)
 dummy &lt;- lapply(git.packages, require, character.only = TRUE)
-## Le chargement a nécessité le package : CCAM
-## 
-## Attachement du package : &#39;CCAM&#39;
-## Les objets suivants sont masqués depuis &#39;package:catchR&#39;:
-## 
-##     spay, spya
-## L&#39;objet suivant est masqué depuis &#39;package:purrr&#39;:
-## 
-##     reduce
-## L&#39;objet suivant est masqué depuis &#39;package:tidyr&#39;:
-## 
-##     extract
-## L&#39;objet suivant est masqué depuis &#39;package:base&#39;:
-## 
-##     raw
-## Le chargement a nécessité le package : DFOdata
 
 ##### my directories ################################################################################
 dir.ziff &lt;- &#39;../../data/ziff/&#39;            # dir to store csv ziff

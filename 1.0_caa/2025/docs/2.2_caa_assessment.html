@@ -535,11 +535,7 @@ CAA&lt;- ggplot(d,aes(x=year,y=age))+
   scale_color_manual(values=c(&#39;black&#39;,&#39;grey&#39;), guide=F)
 
 
-CAA +  labs(x=&#39;Year&#39;,y=&#39;Age&#39;,size=&#39;Proportion&#39;,col=&#39;Zero&#39;)
-## Warning: The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
-## ℹ Please use &quot;none&quot; instead.
-## This warning is displayed once per session.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+CAA +  labs(x=&#39;Year&#39;,y=&#39;Age&#39;,size=&#39;Proportion&#39;,col=&#39;Zero&#39;)</code></pre>
 <p><img src="2.2_caa_assessment_files/figure-html/caan_prop-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggsave(paste0(&quot;../../img/&quot;,tail(my.year,1),&quot;/CAA_EN.png&quot;), width=8, height=4, dpi=600, units=&quot;in&quot;)
 
