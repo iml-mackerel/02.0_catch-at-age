@@ -10,11 +10,11 @@
 
 
 
-<meta name="date" content="2026-04-29" />
+<meta name="date" content="2026-08-03" />
 
 <title>Catch-at-age</title>
 
-<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -380,6 +380,9 @@ div.tocify {
     </li>
   </ul>
 </li>
+<li>
+  <a href="check_otoliths.html">Otoliths</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -401,7 +404,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Catch-at-age</h1>
-<h4 class="date">2026-04-29</h4>
+<h4 class="date">2026-08-03</h4>
 
 </div>
 
@@ -478,8 +481,8 @@ ggplot(check,aes(x=length,y=weight,col=year,group=year))+
     scale_y_continuous(limits=c(0,max(lw$weight)))+
     scale_color_viridis_c()+
     labs(title=&#39;Predicted length-weight relationships by trimester&#39;,x=&#39;Length (mm)&#39;,y=&#39;Weight (g)&#39;)
-## Warning: Removed 7109 rows containing missing values or values outside the scale range (`geom_line()`).</code></pre>
-<p><img src="2.0_caa_files/figure-html/lw_fit-1.png" width="864" style="display: block; margin: auto;" /></p>
+## Warning: Removed 27514 rows containing missing values or values outside the scale range (`geom_line()`).</code></pre>
+<p><img src="2.0_caa_files/figure-html/lw_fit-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -593,7 +596,7 @@ kable(with(check,table(option,period)))</code></pre>
   ggplot(lf.caa,aes(x=weight.unit*n))+geom_histogram(binwidth = 1)+labs(title=&#39;Predicted sample weights&#39;,x=&#39;Weight (kg)&#39;),
   ncol=2
 )</code></pre>
-<p><img src="2.0_caa_files/figure-html/lw_predictions-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/lw_predictions-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="tables" class="section level2 tabset" number="3.4">
@@ -2401,21 +2404,21 @@ PLOTS</h2>
 <pre class="r"><code>dfp &lt;- ddply(df,c(&#39;year&#39;,&#39;period&#39;),summarise,N=length(unique(id)),n=sum(n))
 grid.arrange(ggplot(dfp,aes(x=year,y=N,fill=as.factor(period)))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(fill=&#39;Period&#39;)+labs(x=&#39;&#39;),
              ggplot(dfp,aes(x=year,y=n,fill=as.factor(period)))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(fill=&#39;Period&#39;)+labs(x=&#39;Year&#39;),ncol=1)</code></pre>
-<p><img src="2.0_caa_files/figure-html/lf_samples_period-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/lf_samples_period-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="region-1" class="section level3" number="3.5.2">
 <h3><span class="header-section-number">3.5.2</span> region</h3>
 <pre class="r"><code>dfr &lt;- ddply(df,c(&#39;year&#39;,&#39;region&#39;),summarise,N=length(unique(id)),n=sum(n))
 grid.arrange(ggplot(dfr,aes(x=year,y=N,fill=region))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;&#39;),
              ggplot(dfr,aes(x=year,y=n,fill=region))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;Year&#39;),ncol=1)</code></pre>
-<p><img src="2.0_caa_files/figure-html/lf_samples_region-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/lf_samples_region-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gear-1" class="section level3" number="3.5.3">
 <h3><span class="header-section-number">3.5.3</span> gear</h3>
 <pre class="r"><code>dfg &lt;- ddply(df,c(&#39;year&#39;,&#39;gear&#39;),summarise,N=length(unique(id)),n=sum(n))
 grid.arrange(ggplot(dfg,aes(x=year,y=N,fill=gear))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;&#39;),
              ggplot(dfg,aes(x=year,y=n,fill=gear))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;Year&#39;),ncol=1)</code></pre>
-<p><img src="2.0_caa_files/figure-html/lf_samples_gear-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/lf_samples_gear-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -2453,7 +2456,7 @@ grid.arrange(
     geom_point(data=bio.caa[bio.caa$outlier==T,],aes(col=outlier)),
   ncol=2,widths=c(2,1)
 )</code></pre>
-<p><img src="2.0_caa_files/figure-html/al%20global-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/al%20global-1.png" alt="" width="1344" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>bio.caa &lt;- bio.caa[bio.caa$outlier==FALSE,]
 bio.caa$outlier &lt;- NULL
 
@@ -4394,21 +4397,21 @@ df$id &lt;- with(df,paste(sample.id,year,period,region,gear),collapse=&#39;.&#39
 <pre class="r"><code>dfp &lt;- ddply(df,c(&#39;year&#39;,&#39;period&#39;),summarise,N=length(unique(id)),n=length(id))
 grid.arrange(ggplot(dfp,aes(x=year,y=N,fill=as.factor(period)))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(fill=&#39;Period&#39;)+labs(x=&#39;&#39;)+scale_y_continuous(expand=c(0,0)),
              ggplot(dfp,aes(x=year,y=n,fill=as.factor(period)))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(fill=&#39;Period&#39;)+labs(x=&#39;Year&#39;)+scale_y_continuous(expand=c(0,0)),ncol=1)</code></pre>
-<p><img src="2.0_caa_files/figure-html/al_samples_period-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/al_samples_period-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="region-3" class="section level3" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> region</h3>
 <pre class="r"><code>dfr &lt;- ddply(df,c(&#39;year&#39;,&#39;region&#39;),summarise,N=length(unique(id)),n=length(id))
 grid.arrange(ggplot(dfr,aes(x=year,y=N,fill=region))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;&#39;)+scale_y_continuous(expand=c(0,0)),
              ggplot(dfr,aes(x=year,y=n,fill=region))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;Year&#39;)+scale_y_continuous(expand=c(0,0)),ncol=1)</code></pre>
-<p><img src="2.0_caa_files/figure-html/al_samples_region-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/al_samples_region-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gear-3" class="section level3" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> gear</h3>
 <pre class="r"><code>dfg &lt;- ddply(df,c(&#39;year&#39;,&#39;gear&#39;),summarise,N=length(unique(id)),n=length(id))
 grid.arrange(ggplot(dfg,aes(x=year,y=N,fill=gear))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;&#39;)+scale_y_continuous(expand=c(0,0)),
              ggplot(dfg,aes(x=year,y=n,fill=gear))+geom_bar(stat=&#39;identity&#39;)+scale_fill_viridis_d()+labs(x=&#39;Year&#39;)+scale_y_continuous(expand=c(0,0)),ncol=1)</code></pre>
-<p><img src="2.0_caa_files/figure-html/al_samples_gear-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/al_samples_gear-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -4453,17 +4456,17 @@ PLOTS</h2>
 <div id="region-4" class="section level3" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> region</h3>
 <pre class="r"><code>plotCatch(catch.caa,x=&#39;Year&#39;,y=&#39;Landings (t)&#39;,fill=&#39;region&#39;)+scale_fill_viridis_d(na.value = &quot;grey50&quot;)</code></pre>
-<p><img src="2.0_caa_files/figure-html/catch_region-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/catch_region-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gear-4" class="section level3" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> gear</h3>
 <pre class="r"><code>plotCatch(catch.caa,x=&#39;Year&#39;,y=&#39;Landings (t)&#39;,fill=&#39;gear&#39;)+scale_fill_viridis_d(na.value = &quot;grey50&quot;)</code></pre>
-<p><img src="2.0_caa_files/figure-html/catch_gear-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/catch_gear-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="period-4" class="section level3" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> period</h3>
 <pre class="r"><code>plotCatch(catch.caa,x=&#39;Year&#39;,y=&#39;Landings (t)&#39;,fill=&#39;period&#39;)+scale_fill_viridis_d(na.value = &quot;grey50&quot;)</code></pre>
-<p><img src="2.0_caa_files/figure-html/catch_period-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/catch_period-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -4514,7 +4517,7 @@ CHECK</h2>
 <div id="counts" class="section level3" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Counts</h3>
 <pre class="r"><code>plotAttribution(catch.diffused)</code></pre>
-<p><img src="2.0_caa_files/figure-html/caa_check_samples-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/caa_check_samples-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="catch-per-option" class="section level3" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> %catch per
@@ -4523,26 +4526,26 @@ option</h3>
     plotQuality(x=catch.diffused,&quot;option.lengthfreq&quot;),
     plotQuality(x=catch.diffused,&quot;option.agelength&quot;)
 )</code></pre>
-<p><img src="2.0_caa_files/figure-html/caa_check_samples_catch-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/caa_check_samples_catch-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="catch-per-option-lf-annual" class="section level3"
 number="6.1.3">
 <h3><span class="header-section-number">6.1.3</span> %catch per option
 (lf, annual)</h3>
 <pre class="r"><code>plotQuality(x=catch.diffused,&quot;option.lengthfreq&quot;,annual=TRUE)+geom_hline(yintercept=0.5,col=&#39;lightgrey&#39;)</code></pre>
-<p><img src="2.0_caa_files/figure-html/caa_check_samples_catch_annual_lf-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/caa_check_samples_catch_annual_lf-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="catch-per-option-alk-annual" class="section level3"
 number="6.1.4">
 <h3><span class="header-section-number">6.1.4</span> %catch per option
 (alk, annual)</h3>
 <pre class="r"><code>plotQuality(x=catch.diffused,&quot;option.agelength&quot;,annual=TRUE)+geom_hline(yintercept=0.5,col=&#39;lightgrey&#39;)</code></pre>
-<p><img src="2.0_caa_files/figure-html/caa_check_samples_catch_annual_alk-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/caa_check_samples_catch_annual_alk-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="total" class="section level3" number="6.1.5">
 <h3><span class="header-section-number">6.1.5</span> total</h3>
 <pre class="r"><code>plotTotal(catch.diffused,caa)</code></pre>
-<p><img src="2.0_caa_files/figure-html/caa_check_total-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/caa_check_total-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="plots-3" class="section level2 tabset" number="6.2">
@@ -4551,32 +4554,34 @@ PLOTS</h2>
 <div id="caan" class="section level3" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> CAAN</h3>
 <pre class="r"><code>plotCaan(caa)</code></pre>
-<p><img src="2.0_caa_files/figure-html/caan_plot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/caan_plot-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="caaw" class="section level3" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> CAAW</h3>
 <pre class="r"><code>plotCaaw(caa)</code></pre>
-<p><img src="2.0_caa_files/figure-html/caaw_plot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/caaw_plot-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="waa" class="section level3" number="6.2.3">
 <h3><span class="header-section-number">6.2.3</span> WAA</h3>
 <pre class="r"><code>plotWaa(caa)</code></pre>
-<p><img src="2.0_caa_files/figure-html/waa_plot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/waa_plot-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="waa.ci" class="section level3" number="6.2.4">
 <h3><span class="header-section-number">6.2.4</span> WAA.ci</h3>
-<pre class="r"><code>plotWaa(caa,ci=TRUE)</code></pre>
-<p><img src="2.0_caa_files/figure-html/waa_plot_ci-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotWaa(caa,ci=TRUE)
+## Warning: Removed 33 rows containing missing values or values outside the scale range (`geom_ribbon()`).</code></pre>
+<p><img src="2.0_caa_files/figure-html/waa_plot_ci-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="laa" class="section level3" number="6.2.5">
 <h3><span class="header-section-number">6.2.5</span> LAA</h3>
 <pre class="r"><code>plotLaa(caa)</code></pre>
-<p><img src="2.0_caa_files/figure-html/laa_plot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2.0_caa_files/figure-html/laa_plot-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="laa.ci" class="section level3" number="6.2.6">
 <h3><span class="header-section-number">6.2.6</span> LAA.ci</h3>
-<pre class="r"><code>plotLaa(caa,ci=TRUE)</code></pre>
-<p><img src="2.0_caa_files/figure-html/laa_plot_ci-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotLaa(caa,ci=TRUE)
+## Warning: Removed 33 rows containing missing values or values outside the scale range (`geom_ribbon()`).</code></pre>
+<p><img src="2.0_caa_files/figure-html/laa_plot_ci-1.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
