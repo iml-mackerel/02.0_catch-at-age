@@ -10,11 +10,11 @@
 
 
 
-<meta name="date" content="2026-04-29" />
+<meta name="date" content="2026-08-03" />
 
 <title>Read</title>
 
-<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -380,6 +380,9 @@ div.tocify {
     </li>
   </ul>
 </li>
+<li>
+  <a href="check_otoliths.html">Otoliths</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -401,7 +404,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Read</h1>
-<h4 class="date">2026-04-29</h4>
+<h4 class="date">2026-08-03</h4>
 
 </div>
 
@@ -438,7 +441,7 @@ val %&gt;% mutate(id=paste(sample_id, Fish, sep=&quot;_&quot;)) %&gt;%
     geom_point(aes(x=age_f, y=id), col=&quot;red&quot;) +geom_boxplot() + scale_x_continuous(name=&quot;Age&quot;, breaks=seq(0,10,1)) +
     theme(axis.text.y = element_blank()) +ylab(&quot;Fish&quot;) + ggtitle(&quot;Range of age reading&quot;)
 ## Warning: Removed 4 rows containing non-finite outside the scale range (`stat_boxplot()`).</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>
 conc&lt;- val %&gt;%
   dplyr::group_by(name) %&gt;% filter(!is.na(age_f), !is.na(value)) %&gt;% 
@@ -496,7 +499,7 @@ val %&gt;% ggplot(aes(x = name, fill = valid)) +
     fontface=&quot;bold&quot;
     
   )</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age-2.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>
 
 val %&gt;% ggplot(aes(x = diff, fill = name)) +
@@ -504,7 +507,7 @@ val %&gt;% ggplot(aes(x = diff, fill = name)) +
   scale_fill_viridis_d(name = &quot;Year of age reading&quot;) +
   xlab(&quot;Age difference between readings&quot;) 
 ## Warning: Removed 4 rows containing non-finite outside the scale range (`stat_bin()`).</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age-3.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age-3.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="by-group" class="section level2 tabset" number="2.2">
 <h2 class="tabset"><span class="header-section-number">2.2</span> By
@@ -529,7 +532,7 @@ val %&gt;% ggplot(aes(x = name, fill = valid)) +
     size = 4,
     fontface=&quot;bold&quot;
   )</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age2-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age2-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>
 val %&gt;% ggplot(aes(x = diff, fill = name)) +
   geom_histogram(position=&quot;dodge&quot;, binwidth=0.5) +
@@ -538,7 +541,7 @@ val %&gt;% ggplot(aes(x = diff, fill = name)) +
   facet_wrap(~region) +
   ggtitle(&quot;By region&quot;)
 ## Warning: Removed 4 rows containing non-finite outside the scale range (`stat_bin()`).</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age2-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age2-2.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="by-month" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> By month</h3>
@@ -557,7 +560,7 @@ val %&gt;% ggplot(aes(x = diff, fill = name)) +
     size = 4,
     fontface=&quot;bold&quot;
   )</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age3-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age3-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>
 val %&gt;% ggplot(aes(x = diff, fill = name)) +
   geom_histogram(position=&quot;dodge&quot;, binwidth=0.5) +
@@ -566,7 +569,7 @@ val %&gt;% ggplot(aes(x = diff, fill = name)) +
   facet_wrap(~month) +
   ggtitle(&quot;By month&quot;) 
 ## Warning: Removed 4 rows containing non-finite outside the scale range (`stat_bin()`).</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age3-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age3-2.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="by-gear" class="section level3" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> By gear</h3>
@@ -585,7 +588,7 @@ val %&gt;% ggplot(aes(x = diff, fill = name)) +
     size = 4,
     fontface=&quot;bold&quot;
   )</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age4-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>
 val %&gt;% ggplot(aes(x = diff, fill = name)) +
   geom_histogram(position=&quot;dodge&quot;, binwidth=0.5) +
@@ -594,7 +597,7 @@ val %&gt;% ggplot(aes(x = diff, fill = name)) +
   facet_wrap(~gear.group) +
   ggtitle(&quot;By gear&quot;)
 ## Warning: Removed 4 rows containing non-finite outside the scale range (`stat_bin()`).</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age4-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age4-2.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="by-age-most-important-factor" class="section level3"
 number="2.2.4">
@@ -615,7 +618,7 @@ IMPORTANT FACTOR</h3>
     size = 4,
     fontface=&quot;bold&quot;
   )</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age5-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age5-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>val %&gt;% ggplot(aes(x = diff, fill = name)) +
   geom_histogram(position=&quot;dodge&quot;, binwidth=0.5) +
   scale_fill_viridis_d(name = &quot;Year of age reading&quot;) +
@@ -623,7 +626,7 @@ IMPORTANT FACTOR</h3>
   facet_wrap(~age_f) +
   ggtitle(&quot;By Age&quot;)
 ## Warning: Removed 4 rows containing non-finite outside the scale range (`stat_bin()`).</code></pre>
-<p><img src="0.5_age_validation_files/figure-html/valid.age5-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="0.5_age_validation_files/figure-html/valid.age5-2.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
