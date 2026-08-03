@@ -25,6 +25,9 @@ navbar:
       menu:
         - text: "S52 licence - Length frequency"
           href: 3.4_S52_LF_supptable.html
+    - text: "Otoliths"
+      href: check_otoliths.html
+
 output:
   html_document:
     theme: cosmo

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2026-08-03" />
+
+<title>Otoliths availability based on biological samples</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Mackerel CAA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="0.0_settings.html">
+    <span class="fa fa-cogs"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="0.5_age_validation.html">Age reading - Validation</a>
+</li>
+<li>
+  <a href="1.0_read.html">Data</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    CAA
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="2.0_caa.html">Calculation</a>
+    </li>
+    <li>
+      <a href="2.2_caa_assessment.html">Assessment</a>
+    </li>
+    <li>
+      <a href="2.3_caa_region.html">Regional</a>
+    </li>
+    <li>
+      <a href="2.4_caa_gear.html">Gear</a>
+    </li>
+    <li>
+      <a href="2.5_caa_period.html">Period</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    S52 licence
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="3.4_S52_LF_supptable.html">S52 licence - Length frequency</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="check_otoliths.html">Otoliths</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Otoliths availability based on biological
+samples</h1>
+<h4 class="date">2026-08-03</h4>
+
+</div>
+
+
+<div id="set-up" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> SET-UP</h1>
+<div id="settings" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> settings</h2>
+<pre class="r"><code>source(&#39;0.0_settings.R&#39;)
+dir.create(paste0(&#39;../../csv/&#39;,tail(my.year,1),&#39;/&#39;),showWarnings = FALSE)</code></pre>
+</div>
+<div id="load-all-data" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> load all data</h2>
+<pre class="r"><code>load(paste0(dir.rdat, &quot;bio.Rdata&quot;))                                  # from 1.0 
+#group.region &lt;- read.table(paste0(dir.dat,&#39;caa_group_region.txt&#39;),header=T)
+
+checko&lt;- bio |&gt;  
+    mutate(region= if_else(nafo %in% c(&quot;4T&quot;, &quot;4S&quot;), &quot;Gulf&quot;,
+                                 if_else(prov==&quot;NL&quot; | nafo ==&quot;4R&quot;, &quot;NL&quot;,
+                                           if_else(prov==&quot;NS&quot; | nafo %in% c(&quot;4X&quot;, &quot;4V&quot;), &quot;NS&quot;, NA)))) |&gt; 
+
+    filter(agef %in% c(0,1)) |&gt; mutate(Q=quarter(date))</code></pre>
+</div>
+</div>
+<div id="plot-n-bio-data" class="section level1 tabset" number="2">
+<h1 class="tabset"><span class="header-section-number">2</span> Plot N
+bio data</h1>
+<div id="overall-age-1-or-0" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Overall age 1 or
+0</h2>
+<pre class="r"><code>checkoa = checko |&gt; 
+    group_by(year) |&gt;  tally()  |&gt; 
+    mutate(`check N &gt; 50`= if_else(n&gt;50,&quot;\u2713&quot;, &quot;X&quot;)) #|&gt;  pivot_wider(values_from=n, names_from=region)
+
+checkoa |&gt;  ggplot(aes(x=year, y=n, fill=`check N &gt; 50`)) +
+    geom_bar(stat=&quot;identity&quot;, alpha=1, col=&quot;black&quot;,linewidth=0.1) + 
+       scale_fill_manual(values=c(&quot;black&quot;, &quot;grey&quot;))+
+    theme(legend.position=&quot;top&quot;)</code></pre>
+<p><img src="check_otoliths_files/figure-html/overall-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="by-age" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> By age</h2>
+<pre class="r"><code>checko1 = checko |&gt; 
+    group_by(year,region, agef) |&gt;  tally()  |&gt; 
+    mutate(`check N &gt; 50`= if_else(n&gt;50,&quot;\u2713&quot;, &quot;X&quot;)) #|&gt;  pivot_wider(values_from=n, names_from=region)
+
+checko1 |&gt;  ggplot(aes(x=year, y=n, fill=`check N &gt; 50`)) +
+    geom_bar(stat=&quot;identity&quot;, alpha=1, col=&quot;black&quot;,linewidth=0.1) + 
+    facet_grid(agef~region, scale=&quot;free&quot;) +
+    scale_fill_manual(values=c(&quot;black&quot;, &quot;grey&quot;))+
+    theme(legend.position=&quot;top&quot;)</code></pre>
+<p><img src="check_otoliths_files/figure-html/age-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="by-region" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> By region</h2>
+<pre class="r"><code>checko2 = checko |&gt; 
+    group_by(year,region) |&gt;  tally()  |&gt; 
+    mutate(`check N &gt; 50`= if_else(n&gt;50,&quot;\u2713&quot;, &quot;X&quot;)) #|&gt;  pivot_wider(values_from=n, names_from=region)
+
+checko2 |&gt;  ggplot(aes(x=year, y=n, fill=`check N &gt; 50`)) +
+    geom_bar(stat=&quot;identity&quot;, alpha=1, col=&quot;black&quot;,linewidth=0.1) + 
+    facet_wrap(~region)+
+    scale_fill_manual(values=c(&quot;black&quot;, &quot;grey&quot;))+
+    theme(legend.position=&quot;top&quot;) +
+    ylab(&quot;N age 0 or 1&quot;)</code></pre>
+<p><img src="check_otoliths_files/figure-html/region-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="by-region-and-quarters" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> By region and
+quarters</h2>
+<pre class="r"><code>checko3 = checko  |&gt; 
+    group_by(year,region, Q) |&gt;  tally()  |&gt; 
+    mutate(`check N &gt; 50`= if_else(n&gt;50,&quot;\u2713&quot;, &quot;X&quot;)) #|&gt;  pivot_wider(values_from=n, names_from=region)
+
+checko3 |&gt;  ggplot(aes(x=year, y=n, fill=`check N &gt; 50`)) +
+    geom_bar(stat=&quot;identity&quot;, alpha=1, col=&quot;black&quot;,linewidth=0.1) + 
+    facet_grid(Q~region, scales=&quot;free_y&quot;)+
+    scale_fill_manual(values=c(&quot;black&quot;, &quot;grey&quot;))+
+    theme(legend.position=&quot;top&quot;) +
+    ylab(&quot;N age 0 or 1&quot;)
+## Warning in min(x): aucun argument trouvé pour min ; Inf est renvoyé
+## Warning in max(x): aucun argument pour max ; -Inf est renvoyé
+## Warning in min(x): aucun argument trouvé pour min ; Inf est renvoyé
+## Warning in max(x): aucun argument pour max ; -Inf est renvoyé
+## Warning in min(x): aucun argument trouvé pour min ; Inf est renvoyé
+## Warning in max(x): aucun argument pour max ; -Inf est renvoyé</code></pre>
+<p><img src="check_otoliths_files/figure-html/quarters-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="priority" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Priority</h2>
+<pre class="r"><code>checko4 = checko  |&gt; filter(region==&quot;Gulf&quot;) |&gt; 
+    group_by(year,agef) |&gt;  tally()  |&gt; 
+    mutate(`check N &gt; 50`= if_else(n&gt;50,&quot;\u2713&quot;, &quot;X&quot;)) #|&gt;  pivot_wider(values_from=n, names_from=region)
+
+checko4 |&gt;  ggplot(aes(x=year, y=n, fill=`check N &gt; 50`)) +
+    geom_bar(stat=&quot;identity&quot;, alpha=1, col=&quot;black&quot;,linewidth=0.1) + 
+    facet_wrap(~agef, scales=&quot;free_y&quot;)+
+    scale_fill_manual(values=c(&quot;black&quot;, &quot;grey&quot;))+
+    theme(legend.position=&quot;top&quot;) +
+    ylab(&quot;N age 0 or 1&quot;)</code></pre>
+<p><img src="check_otoliths_files/figure-html/gulf-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="tables" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Tables</h1>
+<pre class="r"><code>   vide&lt;-  expand_grid(year=unique(checko$year),   
+                region=unique(checko$region),
+                agef=unique(checko$agef),
+                Q=unique(checko$Q))
+
+left_join(vide, checko |&gt; group_by(year,region, agef, Q) |&gt;  tally()) |&gt; 
+    mutate(n=replace_na(n, 0)) |&gt; arrange(year, region, agef, Q) |&gt; 
+    
+DT::datatable(class=&quot;cell-border stripe&quot;, rownames = F, filter=&quot;top&quot;,
+                      editable=T, extensions=&quot;Buttons&quot;, options=list(dom=&quot;Bftrop&quot;, buttons=c(&quot;copy&quot;, &quot;csv&quot;,&quot;excel&quot;,&quot;pdf&quot;, &quot;print&quot;),autoWidth=T, scrollX=T)) </code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c47d69c9166429a14664" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c47d69c9166429a14664">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1973\" data-max=\"2025\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1\" data-max=\"4\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"612\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons"],"editable":{"target":"cell","disable":{"columns":null},"numeric":[0,2,3,4],"date":[]},"data":[[1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1973,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1974,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1975,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1976,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1977,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1978,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1979,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1980,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1981,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1982,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1983,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1984,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1985,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1986,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1987,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1988,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1989,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1990,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1991,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1992,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1993,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1994,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1995,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1996,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1997,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1998,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,1999,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2024,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025,2025],["Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","Gulf","NL","NL","NL","NL","NL","NL","NL","NL","NS","NS","NS","NS","NS","NS","NS","NS"],[0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1],[1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,0,0,0,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,102,14,0,0,0,0,0,0,30,34,0,0,0,0,0,0,0,0,0,0,0,0,0,6,121,140,0,0,0,0,0,0,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,137,41,0,0,0,0,0,0,312,0,0,0,0,0,0,0,0,0,0,0,0,0,0,68,122,0,0,0,0,0,0,0,0,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,102,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,13,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,103,0,0,0,0,0,0,0,9,14,0,0,0,0,0,0,223,74,0,0,0,0,0,1,57,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,27,1,0,0,0,0,0,0,3,0,0,0,0,0,0,0,204,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,26,0,0,0,0,0,0,0,51,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,82,8,0,0,0,0,0,0,1,0,0,0,0,0,0,0,35,0,0,0,0,0,0,0,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,105,0,0,0,0,0,0,0,14,2,0,0,0,0,0,0,98,7,0,0,0,0,0,0,18,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,10,6,0,0,1,0,0,0,120,16,0,0,0,0,0,0,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8,0,12,26,6,0,0,75,29,0,0,18,10,0,0,12,1,0,4,0,2,0,0,0,0,0,0,0,0,0,1,114,25,0,0,0,0,0,0,0,2,0,0,0,2,0,32,14,82,0,0,0,0,0,0,54,13,0,0,0,0,0,0,80,0,0,0,0,0,0,6,18,12,0,0,0,0,0,0,156,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,0,0,0,0,0,0,39,3,0,0,0,0,0,0,0,0,0,0,0,0,0,13,5,27,0,0,0,0,0,0,84,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,11,0,0,0,0,0,0,202,0,0,0,0,0,0,0,18,108,0,0,0,0,0,32,29,23,0,0,0,0,0,0,37,2,0,0,0,0,0,0,3,6,0,0,0,8,0,1,30,25,0,0,0,0,0,0,69,12,0,0,0,0,0,0,2,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,78,48,0,0,0,0,0,0,27,11,0,0,0,14,0,4,76,159,0,0,0,0,0,0,173,77,0,0,0,0,0,0,2,102,0,0,0,0,0,4,47,45,0,0,0,0,0,0,80,94,0,0,0,0,0,0,0,5,0,0,0,0,4,3,139,20,0,0,5,2,0,0,303,122,0,0,0,0,0,0,305,169,0,0,0,10,0,0,14,22,0,0,0,8,0,0,54,39,0,0,0,0,0,0,3,17,0,0,0,4,0,11,0,11,0,0,2,15,0,0,235,122,0,0,0,0,0,0,2,15,0,0,0,0,0,0,69,0,0,0,0,0,0,0,318,34,0,0,0,0,0,0,303,292,0,0,1,0,0,9,64,21,0,0,0,0,0,0,54,24,0,0,0,0,0,0,0,0,0,0,0,0,0,31,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,452,259,0,0,0,0,0,9,0,0,0,0,2,9,0,0,25,24,0,0,0,171,0,0,236,87,0,0,0,0,0,0,0,0,0,0,13,0,0,0,64,0,0,0,1,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,15,0,0,93,43,0,0,0,15,0,0,0,1,0,0,0,0,0,0,0,0,0,0,8,1,0,0,177,38,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,34,0,0,0,3,0,0,32,79,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,20,4,0,0,11,0,0,0,1,0,0,0,0,0,0,8,106,0,0,0,118,0,0,0,23,0,0,0,2,52,0,0,0,0,0,0,0,0,99,0,130,8,0,0,263,36,0,0,92,19,0,0,37,44,0,0,3,1,0,0,10,0,19,5,156,0,0,0,160,0,0,0,612,19,0,0,15,72,0,0,4,14,0,0,0,0,38,11,86,1,0,0,128,0,0,0,138,0,0,0,21,35,0,0,6,5,0,0,14,34,1,57,154,112,0,0,16,0,0,4,79,10,0,0,20,13,0,0,60,19,0,0,4,5,0,23,141,30,0,0,3,13,0,0,49,31,0,0,40,34,0,0,25,40,0,0,2,1,0,14,83,17,0,0,9,1,0,0,182,12,0,0,0,0,0,0,77,0,0,0,7,15,0,29,133,69]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>year<\/th>\n      <th>region<\/th>\n      <th>agef<\/th>\n      <th>Q<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bftrop","buttons":["copy","csv","excel","pdf","print"],"autoWidth":true,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[0,2,3,4]},{"name":"year","targets":0},{"name":"region","targets":1},{"name":"agef","targets":2},{"name":"Q","targets":3},{"name":"n","targets":4}],"order":[],"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
